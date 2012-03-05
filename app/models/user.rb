@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, format: { with: valid_email_regex },
                     uniqueness: { case_sensitive: false }
-
     #releations
     belongs_to :group
+    has_one :project, :through => :group
+
+    validates_presence_of :group
 end

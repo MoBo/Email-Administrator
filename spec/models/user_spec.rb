@@ -21,6 +21,7 @@ describe User do
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
+  it { should respond_to(:group_id) }
   it { should be_valid }
 
   describe "when name is not present" do
@@ -68,6 +69,21 @@ describe User do
       user_with_same_email.save
     end
 
+    it { should_not be_valid }
+  end
+  describe "when user selects a valid group" do
+    before do
+      @group = Group.create(name:"khh")
+      @user.group_id = @group.id
+    end
+    it {should be_valid}
+  end
+
+  describe "when user selects invalid group" do
+    before do
+      @group = Group.create(name:"khh")
+      @user.group_id = 800
+    end
     it { should_not be_valid }
   end
 end

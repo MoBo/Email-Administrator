@@ -1,4 +1,10 @@
 Awe12tag1::Application.routes.draw do
+  get "static_pages/home"
+
+  get "static_pages/groups"
+
+  get "static_pages/projects"
+
   resources :projects
 
   resources :groups

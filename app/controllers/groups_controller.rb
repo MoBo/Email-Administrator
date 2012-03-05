@@ -80,4 +80,9 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def users
+    
+  end
+
 end

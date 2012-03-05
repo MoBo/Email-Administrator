@@ -1,2 +1,27 @@
-<h1>StaticPages#groups</h1>
-<p>Find me in app/views/static_pages/groups.html.erb</p>
+<h1>Group Overview</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Project</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @groups.each do |group| %>
+  <tr>
+    <td><%= group.name %></td>
+    <td><%= group.project_id %></td>
+    <td><%= link_to 'Show', group %></td>
+    <td><%= link_to 'Edit', edit_group_path(group) %></td>
+    <td><%= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Add Users', add_user(group) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Group', new_group_path %>

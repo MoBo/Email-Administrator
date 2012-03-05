@@ -1,0 +1,7 @@
+
+<h1>
+	Gruppe: <%= @group.name%>
+</h1>
+<% @users.each do |user| %>
+	<p>Member: <%= user.name %></p>
+<% end %>

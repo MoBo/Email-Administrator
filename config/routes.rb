@@ -7,9 +7,16 @@ Awe12tag1::Application.routes.draw do
 
   resources :projects
 
-  resources :groups
-
   resources :users
+
+  root to: 'static_pages#home'
+
+  resources :groups do
+      resources :users
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

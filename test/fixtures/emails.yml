@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  adresse: MyString
+  password: MyString
+  comment: MyText
+  expires: 2012-03-06
+  path: MyString
+  foward_email: MyString
+  receive: false
+  alt_email: MyString
+
+two:
+  adresse: MyString
+  password: MyString
+  comment: MyText
+  expires: 2012-03-06
+  path: MyString
+  foward_email: MyString
+  receive: false
+  alt_email: MyString

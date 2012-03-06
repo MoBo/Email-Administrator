@@ -12,5 +12,5 @@ class User < ActiveRecord::Base
 
   #scopes
   scope :without_group, where(:group_id => nil)
-  scope :with_group, where(:group_id => !nil)
+  scope :with_group, where('group_id is not null')
 end

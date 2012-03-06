@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
@@ -43,6 +43,7 @@ GEM
       multi_json (~> 1.0)
     faker (1.0.1)
       i18n (~> 0.4)
+    haml (3.1.4)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
@@ -121,6 +122,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   faker (= 1.0.1)
+  haml
   jquery-rails
   rails (= 3.2.2)
   rspec-rails (= 2.8.1)

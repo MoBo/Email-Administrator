@@ -66,3 +66,4 @@ rerun.txt
 pickle-email-*.html
 
 .project
+/public/assets/*

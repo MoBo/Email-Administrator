@@ -12,6 +12,3 @@
  *= require_tree .
  *= require 'formtastic'
 */
-body {
-	padding: 0;
-}

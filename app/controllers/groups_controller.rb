@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
     @user = User.find_by_name(params[:post][:user])
     respond_to do |format|
       if @user.update_attributes("group_id" => params[:id])
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to [@group,:users], notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

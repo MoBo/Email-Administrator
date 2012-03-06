@@ -12,7 +12,7 @@ Awe12tag1::Application.routes.draw do
   root to: 'static_pages#home'
 
   resources :groups do
-      resources :users
+      resources :users, :controller => 'group_users'
   #     resources :sales do
   #       get 'recent', :on => :collection
   #     end

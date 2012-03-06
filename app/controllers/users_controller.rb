@@ -2,19 +2,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if params[:group_id]
-      @users = User.find_all_by_group_id(params[:group_id])
-      @group = Group.find(params[:group_id]);
-      render :partial => 'add_group'
-    else
-      @users = User.all
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @users }
-      end
-    end  
+    @users = User.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @users }
+    end
 
-    
   end
 
   # GET /users/1

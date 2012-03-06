@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   belongs_to :group
   has_one :project, :through => :group
 
-  validates_presence_of :group
+  #validates_presence_of :group
 
   #scopes
   scope :without_group, where(:group_id => nil)

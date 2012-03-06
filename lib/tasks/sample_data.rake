@@ -13,5 +13,11 @@ namespace :db do
       User.create!(name: name,
                    email: email, group_id:g.id)
     end
+    5.times do |n|
+      name  = Faker::Name.name
+      email = "example-#{n+100}@railstutorial.org"
+      User.create!(name: name,
+                   email: email)  
+    end
   end
 end

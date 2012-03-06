@@ -55,6 +55,8 @@ GEM
     faker (1.0.1)
       i18n (~> 0.4)
     ffi (1.0.11)
+    formtastic (2.1.1)
+      actionpack (~> 3.0)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
@@ -146,6 +148,7 @@ DEPENDENCIES
   capybara (= 1.1.2)
   coffee-rails (= 3.2.2)
   faker (= 1.0.1)
+  formtastic
   jquery-rails (= 2.0.0)
   pg (= 0.12.2)
   rails (= 3.2.1)

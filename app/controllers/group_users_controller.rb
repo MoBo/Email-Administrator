@@ -10,7 +10,8 @@ class GroupUsersController < ApplicationController
   end
   
   def new
-    @users = User.without_group();
+    @users = User.with_group();
+    @group = Group.find(params[:group_id]);
   end
   
 end

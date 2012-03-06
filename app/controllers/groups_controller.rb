@@ -41,6 +41,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(params[:group])
+    @group.user.add
 
     respond_to do |format|
       if @group.save
@@ -57,9 +58,9 @@ class GroupsController < ApplicationController
   # PUT /groups/1.json
   def update
     @group = Group.find(params[:id])
-
+    @user = User.find_by_name(params[:post][:user])
     respond_to do |format|
-      if @group.update_attributes(params[:group])
+      if @user.update_attributes("group_id" => params[:id])
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else

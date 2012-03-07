@@ -1,7 +1,8 @@
 class Email < ActiveRecord::Base
-  attr_accessible :address, :password, :comment, :expires, :path, :forward_email, :receive, :alt_email
+  attr_accessible :address, :password, :comment, :expires, :path, :forward_email, :receive, :alt_email, :password_reset_id
   
   before_save :encrypt_password
+  has_one :password_reset
   
   private
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306174651) do
+ActiveRecord::Schema.define(:version => 20120307174513) do
 
   create_table "domains", :force => true do |t|
     t.string   "name"
@@ -28,8 +28,15 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
     t.string   "forward_email"
     t.boolean  "receive"
     t.string   "alt_email"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "password_reset_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "password_resets", :force => true do |t|
+    t.string   "reset_token"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end

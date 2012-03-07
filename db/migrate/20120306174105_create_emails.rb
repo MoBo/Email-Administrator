@@ -9,6 +9,7 @@ class CreateEmails < ActiveRecord::Migration
       t.string :forward_email
       t.boolean :receive
       t.string :alt_email
+      t.integer :password_reset_id
 
       t.timestamps
     end

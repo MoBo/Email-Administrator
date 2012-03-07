@@ -15,7 +15,7 @@ class DomainsController < ApplicationController
 
   def update
     @domain = Domain.find(params[:id])
-    @domain.update_attributes("name" => params[:domain][:name])
+    @domain.update_attributes(params[:domain])
     if @domain.update_attributes(params[:user])
       redirect_to @domain, notice: 'User was successfully updated.'
     else
@@ -33,6 +33,11 @@ class DomainsController < ApplicationController
   end
   
   def create
-    
+    @domain = Domain.new(params[:domain])
+    if @domain.save
+      redirect_to @domain, notice: 'User was successfully created.'
+    else
+      redirect_to [:new,:dmoains]
+    end
   end
 end

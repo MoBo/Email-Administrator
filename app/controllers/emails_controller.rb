@@ -19,4 +19,8 @@ class EmailsController < ApplicationController
   def create
   end
   
+  def search
+     @emails = Email.find_all_by_address(params[:address])
+    render "index"
+  end
 end

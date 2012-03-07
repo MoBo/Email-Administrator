@@ -1,0 +1,16 @@
+.search
+  .searchTab
+    = form_tag({:controller => "emails", :action => "search"}, :method => "get") do
+      .searchField
+        = label_tag :address
+        = search_field_tag :address
+      .filter
+        = label_tag :searchItem
+        = select_tag :searchItem
+      .submitBtn
+        = submit_tag("search")
+     
+        
+  .searchResults
+    - @emails.each do |email|
+      = render :partial => "result_item", :locals => { :email => email }

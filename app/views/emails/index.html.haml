@@ -1,14 +1,16 @@
-%h3 Here are all emails
+= render "search"
 
-- @emails.each_with_index do |e, i|
-  %p 
-    Email #{i +1}
-    .field "Address"
-    = e.address
-    .field "Password"
-    = e.password
-    .field "Comment"
-    = e.comment
-    .field "Expires"
-    = e.expires
-    = e.path 
+-# %h3 Here are all emails
+-# 
+-# - @emails.each_with_index do |e, i|
+  -# %p 
+    -# Email #{i +1}
+    -# .field "Address"
+    -# = e.address
+    -# .field "Password"
+    -# = e.password
+    -# .field "Comment"
+    -# = e.comment
+    -# .field "Expires"
+    -# = e.expires
+    -# = e.path 

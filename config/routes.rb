@@ -1,6 +1,7 @@
 EmailAdministrator::Application.routes.draw do
   
   resources :domains
+  resources :emails
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

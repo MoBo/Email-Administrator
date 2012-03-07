@@ -14,9 +14,16 @@ class EmailsController < ApplicationController
   end
 
   def new
+    @email = Email.new
   end
 
   def create
+    @email = Email.new(params[:email])
+    if @email.save
+      redirect_to @email, notice: 'Email was successfully created.'
+    else
+      redirect_to [:new,:emails]
+    end
   end
   
   def search

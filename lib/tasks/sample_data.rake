@@ -13,7 +13,7 @@ namespace :db do
       data[:comment] = Faker::Lorem.sentences(n+1)
       data[:expires] = n.day.from_now
       data[:path] = "/default/path"
-      data[:foward_email] = Faker::Internet.email if (n%3).zero?
+      data[:forward_email] = Faker::Internet.email if (n%3).zero?
       data[:receive] = (n%2).zero?
       data[:alt_email] = Faker::Internet.email if (n%2).zero?
       Email.create!(data)  

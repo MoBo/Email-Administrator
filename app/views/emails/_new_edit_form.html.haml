@@ -1,0 +1,31 @@
+.email.edit.form
+  = form_for @email do |e|
+    %p
+      = e.label :address
+      = e.text_field :address
+    %p
+      = e.label :alt_email
+      = e.text_field :alt_email
+    %p
+      = e.label :password
+      = e.password_field :password
+    %p
+      = e.label :comment
+      = e.text_field :comment
+    %p
+      = e.label :expires
+      = e.text_field :expires
+    %p
+      = e.label :path
+      = e.text_field :path
+    %p
+      = e.label :forward_email
+      = e.text_field :forward_email
+    %p
+      = e.label :receive
+      = e.check_box :receive
+    
+    %p
+      = e.submit
+    
+  

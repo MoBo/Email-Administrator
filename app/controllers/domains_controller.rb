@@ -37,7 +37,7 @@ class DomainsController < ApplicationController
     if @domain.save
       redirect_to @domain, notice: 'User was successfully created.'
     else
-      redirect_to [:new,:dmoains]
+      redirect_to [:new,:domains]
     end
   end
 end

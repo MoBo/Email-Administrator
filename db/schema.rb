@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
     t.text     "comment"
     t.date     "expires"
     t.string   "path"
-    t.string   "foward_email"
+    t.string   "forward_email"
     t.boolean  "receive"
     t.string   "alt_email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end

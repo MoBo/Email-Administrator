@@ -1,7 +1,0 @@
-<h1>
-	Gruppe: <%= @group.name%>
-</h1>
-<p><%= link_to 'List users', [:new,@group,:user] %></p>
-<% @users.each do |user| %>
-	<p>Member: <%= user.name %></p>
-<% end %>

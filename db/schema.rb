@@ -29,9 +29,14 @@ ActiveRecord::Schema.define(:version => 20120307174513) do
     t.boolean  "receive"
     t.string   "alt_email"
     t.integer  "password_reset_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
+
+  add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
+  add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
 
   create_table "password_resets", :force => true do |t|
     t.string   "reset_token"

@@ -1,8 +1,15 @@
 class Email < ActiveRecord::Base
+  
+  devise :recoverable
   attr_accessible :address, :password, :comment, :expires, :path, :forward_email, :receive, :alt_email, :password_reset_id
   
   before_save :encrypt_password
   has_one :password_reset
+  
+  
+  def email
+    self.address
+  end
   
   private
   

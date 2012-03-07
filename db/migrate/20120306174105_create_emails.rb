@@ -11,7 +11,14 @@ class CreateEmails < ActiveRecord::Migration
       t.string :alt_email
       t.integer :password_reset_id
 
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
       t.timestamps
     end
+    
+    add_index :emails, :address,                :unique => true
+    add_index :emails, :reset_password_token, :unique => true
   end
 end

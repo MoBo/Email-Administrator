@@ -8,6 +8,7 @@ gem 'rails', '3.2.2'
 gem 'sqlite3'
 gem 'faker', '1.0.1'
 gem 'haml'
+gem 'devise'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 

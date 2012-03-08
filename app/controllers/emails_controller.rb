@@ -27,7 +27,7 @@ class EmailsController < ApplicationController
   end
   
   def search
-     @emails = Email.find(:all, :conditions => ["address LIKE ?","%#{params[:address]}%"])
+     @emails = Email.find(:all, :conditions => ["address LIKE ?","%#{params[:email]}%"])
     render "index"
   end
 end

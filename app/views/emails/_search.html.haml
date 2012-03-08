@@ -2,8 +2,8 @@
   .searchTab
     = form_tag({:controller => "emails", :action => "search"}, :method => "get") do
       .searchField
-        = label_tag :address
-        = search_field_tag :address
+        = label_tag :email
+        = search_field_tag :email
       .filter
         = label_tag :searchItem
         = select_tag :searchItem

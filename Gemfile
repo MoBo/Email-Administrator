@@ -10,7 +10,7 @@ gem 'faker', '1.0.1'
 gem 'haml'
 gem 'devise'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-
+gem 'rufus-scheduler'#, :source => 'http://gemcutter.org'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -8,8 +8,8 @@ namespace :db do
     5.times do |n|
       # :address, :password, :comment, :expires, :path, :foward_email, :receive, :alt_email 
       data = Hash.new
-      data[:address] =  Faker::Internet.email
-      data[:password] = Faker::Lorem.words(1)
+      data[:email] =  Faker::Internet.email
+      data[:password] = "aaaaaa"
       data[:comment] = Faker::Lorem.sentences(n+1)
       data[:expires] = n.day.from_now
       data[:path] = "/default/path"

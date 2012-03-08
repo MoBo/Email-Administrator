@@ -1,8 +1,8 @@
 class CreateEmails < ActiveRecord::Migration
   def change
     create_table :emails do |t|
-      t.string :address
-      t.string :password
+      t.string :email
+      t.string :encrypted_password, :null => false, :default => ""
       t.text :comment
       t.date :expires
       t.string :path
@@ -18,7 +18,7 @@ class CreateEmails < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :emails, :address,                :unique => true
+    add_index :emails, :email,                :unique => true
     add_index :emails, :reset_password_token, :unique => true
   end
 end

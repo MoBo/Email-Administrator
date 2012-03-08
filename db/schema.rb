@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307174513) do
+ActiveRecord::Schema.define(:version => 20120306174651) do
 
   create_table "domains", :force => true do |t|
     t.string   "name"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20120307174513) do
   end
 
   create_table "emails", :force => true do |t|
-    t.string   "address"
-    t.string   "password"
+    t.string   "email"
+    t.string   "encrypted_password",     :default => "", :null => false
     t.text     "comment"
     t.date     "expires"
     t.string   "path"
@@ -31,17 +31,11 @@ ActiveRecord::Schema.define(:version => 20120307174513) do
     t.integer  "password_reset_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
-  add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
+  add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true
   add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
-
-  create_table "password_resets", :force => true do |t|
-    t.string   "reset_token"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
 
 end

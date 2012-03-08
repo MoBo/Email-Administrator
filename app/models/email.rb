@@ -4,7 +4,6 @@ class Email < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :comment, :expires, :path, :forward_email, :receive, :alt_email
   
   # before_save :encrypt_password
-  
   private
   
   # def encrypt_password

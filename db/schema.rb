@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
     t.string   "forward_email"
     t.boolean  "receive"
     t.string   "alt_email"
-    t.integer  "password_reset_id"
+    t.boolean  "reminder_send"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "created_at",                             :null => false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
   end
 
   add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true
+  add_index "emails", ["expires"], :name => "index_emails_on_expires", :unique => true
   add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
 
 end

@@ -9,7 +9,7 @@ class CreateEmails < ActiveRecord::Migration
       t.string :forward_email
       t.boolean :receive
       t.string :alt_email
-      t.integer :password_reset_id
+      t.boolean :reminder_send
 
       ## Recoverable
       t.string   :reset_password_token
@@ -20,5 +20,6 @@ class CreateEmails < ActiveRecord::Migration
     
     add_index :emails, :email,                :unique => true
     add_index :emails, :reset_password_token, :unique => true
+    add_index :emails, :expires, :unique => true
   end
 end

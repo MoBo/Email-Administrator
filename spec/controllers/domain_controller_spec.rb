@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe DomainController do
+describe DomainsController do
 
 end

@@ -14,4 +14,8 @@ class Email < ActiveRecord::Base
   def is_authenticated(passw_hash)
      self.password.eql?  BCrypt::Password.new(passw_hash)
   end
+  
+  def self.get_emails_expires_soon
+    Email.where(:expires => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+  end
 end

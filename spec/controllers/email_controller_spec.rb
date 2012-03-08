@@ -62,14 +62,14 @@ describe EmailsController do
     end
   end
   
-    describe "Email to reset the password " do
+  describe "Email to reset the password " do
     it "should be sent if email expires" do
       
     end
+    
     it "should be resend if token expired" do
       
-    end
-    
+    end 
   end
   
   describe "Email should contain" do
@@ -77,5 +77,46 @@ describe EmailsController do
       
     end
   end
-
+  
+  describe "Email expires soon" do
+    before do
+      @email_expires_in_two_days = Factory(:email_expires_in_two_days)
+      @email_expires_reminder_send = Factory(:email_expires_reminder_send)
+      @emails = Email.get_emails_expires_soon
+      @emails_are_expired = Email.get_emails_expired
+    end
+    
+    it "and should contains email which expires soon" do
+      @emails.to_a.include?(@email_expires_in_two_days).should be_true    
+    end 
+    
+    it "and should not contains email for which a reminder was already sent" do
+      @emails.to_a.include?(@email_expires_reminder_send).should_not be_true
+    end
+    
+    # Normally reminder email should be sent, but include in the test case
+    it "and emails are marked as reminded" do
+      @emails.each do |email|
+        email.remind_email
+      end
+      
+      @emails.each do |email|
+        email.reminder_send.should be_true 
+      end
+    end
+    
+    it "and deactivate email when it is expired" do
+      @emails_are_expired.each do |email|
+        email.deactivate
+      end
+      
+      @emails_are_expired.each do |email|
+        email.activate.should be_false
+      end
+      
+    end
+    
+    
+  end
+  
 end

@@ -7,13 +7,13 @@ scheduler = Rufus::Scheduler.start_new
  
 scheduler.every("15m") do
    puts "deleting User"
-   @emails = Email.where(:expires => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+   @emails = Email.get_emails_expires_soon
    # send emails to all in emails container
-   @email.each do |email|
+   @emails.each do |email|
      EmailMailer.expires_email(email).deliver
    end
    # save email send in emails if successfull
    
-   # delete emails that did not response to the remainder
+   # deactivate emails that did not response to the remainder
    @remove_emails = Email.where(:expires => Time.now)
 end

@@ -10,6 +10,7 @@ class CreateEmails < ActiveRecord::Migration
       t.boolean :receive
       t.string :alt_email
       t.boolean :reminder_send
+      t.boolean :active , :default => true
 
       ## Recoverable
       t.string   :reset_password_token

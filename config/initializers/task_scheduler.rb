@@ -11,9 +11,14 @@ scheduler.every("15m") do
    # send emails to all in emails container
    @emails.each do |email|
      EmailMailer.expires_email(email).deliver
+     # save email send in emails if successfull 
+     email.set_reminder_send(true)
    end
-   # save email send in emails if successfull
    
    # deactivate emails that did not response to the remainder
-   @remove_emails = Email.where(:expires => Time.now)
+   @emails_to_deactivate = Email.get_emails_expired
+   @emails_to_deactivate.each do |email|
+     email.deactivate
+   end
+   
 end

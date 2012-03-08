@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
 
   create_table "emails", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
     t.text     "comment"
     t.date     "expires"
     t.string   "path"
@@ -29,10 +29,11 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
     t.boolean  "receive"
     t.string   "alt_email"
     t.boolean  "reminder_send"
+    t.boolean  "active",                 :default => true
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true

@@ -11,10 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306174651) do
+ActiveRecord::Schema.define(:version => 20120309105905) do
 
   create_table "domains", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "email_paths", :force => true do |t|
+    t.string   "type"
+    t.string   "path"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -24,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20120306174651) do
     t.string   "encrypted_password",     :default => "",   :null => false
     t.text     "comment"
     t.date     "expires"
-    t.string   "path"
+    t.integer  "email_path_id"
     t.string   "forward_email"
     t.boolean  "receive"
     t.string   "alt_email"

@@ -5,7 +5,7 @@ class CreateEmails < ActiveRecord::Migration
       t.string :encrypted_password, :null => false, :default => ""
       t.text :comment
       t.date :expires
-      t.string :path
+      t.integer :email_path_id
       t.string :forward_email
       t.boolean :receive
       t.string :alt_email

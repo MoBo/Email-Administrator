@@ -6,4 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+path = "/tmp/"
+
 Domain.create([{:name => "google.cn"}, {:name => "zoo.de"}, {:name => "hockey.de"}, {:name => "lab.com"}])
+EmailPath.create(:path => path,:type => "default")

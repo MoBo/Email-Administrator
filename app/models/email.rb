@@ -1,8 +1,9 @@
 class Email < ActiveRecord::Base
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires, :path, :forward_email, :receive, :alt_email, :reminder_send, :active
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires, :email_path_id, :forward_email, :receive, :alt_email, :reminder_send, :active
   
+  belongs_to :email_path
   # before_save :encrypt_password
   
  

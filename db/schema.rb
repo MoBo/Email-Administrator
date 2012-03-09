@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(:version => 20120309105905) do
   end
 
   create_table "email_paths", :force => true do |t|
-    t.string   "type"
-    t.string   "path"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "path_type",  :default => "default"
+    t.string   "path",       :default => "var/logs"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "emails", :force => true do |t|

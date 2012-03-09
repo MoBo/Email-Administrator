@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe EmailPath do
-  let(:default_path){Factory(:email_path)}
+  #let(:default_path){Factory(:email_path)}
+  before(:each) do 
+    @email_path  = EmailPath.create!
+  end
   describe "default path was set" do
     it "and there should be an entry in the path" do
       EmailPath.count.should be > 0
@@ -9,7 +12,7 @@ describe EmailPath do
     
     it "and the default path should be the first element in the table" do
       first_element = EmailPath.first
-      first_element.type.should eql "default"
+      first_element.path_type.should eql "default"
     end
   end
   

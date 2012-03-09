@@ -4,5 +4,4 @@
   .comment
     = @email.comment
   .editBtn
-    = link_to "Save", [:edit,email]
-    
+    = @email.email_path.path

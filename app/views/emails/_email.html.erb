@@ -1,0 +1,18 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="pretty">
+  <tr>
+    <th><%= sortable "email" %></th>
+    <th><%= sortable "receive" %></th>
+    <th><%= sortable "alt_email" %></th>
+  </tr>
+  <% for email in @emails %>
+    <tr>
+      <td><%= email.email %></td>
+      <td ><%= email.receive %></td>
+      <td><%=  email.alt_email %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @emails %>

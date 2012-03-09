@@ -14,6 +14,5 @@ describe EmailPath do
       first_element = EmailPath.first
       first_element.path_type.should eql "default"
     end
-  end
-  
+  end  
 end

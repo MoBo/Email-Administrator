@@ -7,6 +7,8 @@ EmailAdministrator::Application.routes.draw do
          get 'search'
      end
   end
+  
+  root :to => 'emails#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

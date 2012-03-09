@@ -24,6 +24,7 @@ class Email < ActiveRecord::Base
   def deactivate
     self.update_attributes(:active => false)
   end
+  
   def self.search(search)
     if search
       where('email LIKE ?', "%#{search}%")
@@ -31,6 +32,7 @@ class Email < ActiveRecord::Base
       scoped
     end
   end
+  
   private
   
   # def encrypt_password

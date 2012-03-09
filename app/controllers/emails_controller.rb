@@ -29,10 +29,10 @@ class EmailsController < ApplicationController
     end
   end
   
-  def search
-     @emails = Email.find(:all, :conditions => ["email LIKE ?","%#{params[:email]}%"])
-    render "index"
-  end
+  # def search
+     # @emails = Email.find(:all, :conditions => ["email LIKE ?","%#{params[:email]}%"])
+    # render "index"
+  # end
   
   private
   

@@ -1,11 +1,9 @@
-<%  %>
-
 <%= form_tag emails_path, :method => 'get', :id => "emails_search" do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :email => nil %>
   </p>
-  <div id="emails"><%= render 'email' %></div>
+  <div id="emails"><%= render 'emails' %></div>
 <% end %>
 
 

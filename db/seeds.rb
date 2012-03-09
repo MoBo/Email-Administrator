@@ -10,4 +10,4 @@
 path = "/tmp/"
 
 Domain.create([{:name => "google.cn"}, {:name => "zoo.de"}, {:name => "hockey.de"}, {:name => "lab.com"}])
-EmailPath.create!
+EmailPath.create

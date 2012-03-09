@@ -19,6 +19,5 @@ namespace :db do
       data[:alt_email] = Faker::Internet.email if (n%2).zero?
       Email.create!(data)  
     end
-    EmailPath.create!
   end
 end

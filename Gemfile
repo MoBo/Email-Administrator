@@ -7,10 +7,13 @@ gem 'haml'
 gem 'devise'
 gem 'rufus-scheduler'
 
+gem 'will_paginate'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
 end
 
 gem 'jquery-rails'
@@ -21,6 +24,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
   gem 'factory_girl_rails', '1.0'
 end
 

@@ -16,8 +16,8 @@
       = e.label :expires
       = e.text_field :expires
     %p
-      = e.label :path
-      = e.text_field :path
+      = e.label :email_path_name
+      = text_field_tag :email_path_name, (@email.email_path ? @email.email_path.path : "var/logs")
     %p
       = e.label :forward_email
       = e.text_field :forward_email

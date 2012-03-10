@@ -67,3 +67,4 @@ pickle-email-*.html
 
 .project
 /public/assets/*
+db/schema.rb

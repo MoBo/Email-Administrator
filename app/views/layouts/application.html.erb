@@ -33,6 +33,12 @@
 
   <div class="container">
     <div class="row">
+   <% if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
       <div class="span9">
       	<%= yield %></div>
       <div class="span3">

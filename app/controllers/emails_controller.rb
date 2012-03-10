@@ -12,6 +12,8 @@ class EmailsController < ApplicationController
 
   def edit
     @email = Email.find(params[:id])
+    @domains = Domain.all
+    @domain = @email.domain
   end
 
   def update
@@ -34,6 +36,7 @@ class EmailsController < ApplicationController
 
   def new
     @email = Email.new
+    @domains = Domain.all
   end
 
   def create

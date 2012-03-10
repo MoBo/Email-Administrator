@@ -6,6 +6,7 @@ class CreateEmails < ActiveRecord::Migration
       t.text :comment
       t.date :expires
       t.integer :email_path_id
+      t.integer :domain_id
       t.string :forward_email
       t.boolean :receive
       t.string :alt_email

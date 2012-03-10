@@ -24,7 +24,9 @@
     %p
       = e.label :receive
       = e.check_box :receive
-    
+    %p
+      = e.label :domain
+      = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
     %p
       = e.submit
     

@@ -5,9 +5,21 @@ describe "Email pages" do
   subject { page }
   
   before{
+    @domains = Array.new
+    
+    10.times do
+      @domains.push Factory(:domain)
+    end
+    
     @email_path  = Factory(:email_path)
     @example_email = Factory(:email)
+    
+    
   }
+  
+  it "should have 5 domains" do
+    Domain.count.should be == 10
+  end
   
   describe "new page" do
     before { visit new_email_path }
@@ -21,6 +33,8 @@ describe "Email pages" do
       visit edit_email_path(@example_email) }
     
     it { find_field('email_path_name').value.should eql 'var/logs' }
+    
+    it {page.has_select?('email_domain_id', :selected => @example_email.domain.name).should be_true}
   end
   
   describe "new" do
@@ -51,6 +65,17 @@ describe "Email pages" do
       
       it "should create a new emails_path" do
         expect { click_button "Create Email" }.not_to change(EmailPath, :count)
+      end
+    end
+    
+    describe "select second domain" do
+      before do
+        select(@domains[1].name, :from => 'email_domain_id')
+        click_button("Create Email")
+      end
+      
+      it "should be the second domain accosiated with the new email" do
+        Email.last.domain.id.should be == 2
       end
     end
   end

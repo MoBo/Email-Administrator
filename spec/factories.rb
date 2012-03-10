@@ -16,6 +16,7 @@ Factory.define :email do |email|
   email.alt_email             "mhart2@example.com"
   email.expires               Time.now + 50.days
   email.reminder_send         false
+  email.domain_id             1
 end
 
 
@@ -33,3 +34,8 @@ end
 Factory.define :email_path do
   
 end
+
+Factory.define :domain do |u|
+  u.sequence(:name) { |n| "mike#{n}@awesome.com"}
+end
+

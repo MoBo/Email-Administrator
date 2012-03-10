@@ -178,7 +178,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   devise
-  factory_girl_rails (= 1.0)
+  factory_girl_rails
   faker (= 1.0.1)
   haml
   jquery-rails

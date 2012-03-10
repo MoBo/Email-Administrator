@@ -15,15 +15,21 @@ class EmailsController < ApplicationController
   end
 
   def update
-    email_path = get_or_create_email_path(params[:email_path_name])
-    params[:email][:email_path_id] = email_path.id.to_s
-     
     @email = Email.find(params[:id])
-    if @email.update_attributes(params[:email])
-      redirect_to @email, notice: 'Email was successfully updated.'
+    email_path = get_or_create_email_path(params[:email_path_name])
+    if email_path
+      params[:email][:email_path_id] = email_path.id.to_s
+      
+      if @email.update_attributes(params[:email])
+        redirect_to @email, notice: 'Email was successfully updated.'
+      else
+        redirect_to [:edit,@email]
+      end
     else
       redirect_to [:edit,@email]
     end
+     
+    
   end
 
   def new
@@ -32,13 +38,17 @@ class EmailsController < ApplicationController
 
   def create
     email_path = get_or_create_email_path(params[:email_path_name])
-    params[:email][:email_path_id] = email_path.id.to_s
+    if email_path
+      params[:email][:email_path_id] = email_path.id.to_s
      
-    @email = Email.new(params[:email])
-    if @email.save
-      redirect_to @email, notice: 'Email was successfully created.'
+      @email = Email.new(params[:email])
+      if @email.save
+        redirect_to @email, notice: 'Email was successfully created.'
+      else
+        redirect_to new_email_path
+      end
     else
-      redirect_to [:new,@email]
+      redirect_to new_email_path
     end
   end
   
@@ -51,11 +61,13 @@ class EmailsController < ApplicationController
   
   def get_or_create_email_path(email_path_name)
     # Check if email path already exits otherwise create new path
-    email_path = EmailPath.find_by_path(email_path_name)
-    if not email_path
-      email_path = EmailPath.create(:path => params[:email_path_name], :path_type => "custom")
+    if not email_path_name.empty?
+      email_path = EmailPath.find_by_path(email_path_name)
+      if not email_path
+        email_path = EmailPath.create(:path => params[:email_path_name], :path_type => "custom")
+      end
+      email_path
     end
-    email_path
   end
   
   def sort_column

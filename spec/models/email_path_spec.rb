@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EmailPath do
   #let(:default_path){Factory(:email_path)}
   before(:each) do 
-    @email_path  = EmailPath.create!
+    @email_path  = Factory(:email_path)
   end
   describe "default path was set" do
     it "and there should be an entry in the path" do

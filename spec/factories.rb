@@ -29,3 +29,7 @@ Factory.define :email_expires_reminder_send , :class => :email do |email|
   email.expires               Time.now + 2.days
   email.reminder_send         true
 end
+
+Factory.define :email_path do
+  
+end

@@ -6,13 +6,15 @@ namespace :db do
       Domain.create!(name: name)  
     end
     email_path = EmailPath.create!
-    5.times do |n|
+    60.times do |n|
       # :address, :password, :comment, :expires, :path, :foward_email, :receive, :alt_email 
       data = Hash.new
-      data[:email] =  Faker::Internet.email
+      domain = Domain.find(rand(1...5))
+      data[:email] =  Faker::Internet.user_name + "@" + domain.name
       data[:password] = "aaaaaa"
       data[:comment] = Faker::Lorem.sentences(n+1)
       data[:expires] = n.day.from_now
+      data[:domain_id] = domain.id
       data[:email_path_id] = email_path.id
       data[:forward_email] = Faker::Internet.email if (n%3).zero?
       data[:receive] = (n%2).zero?

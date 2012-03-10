@@ -4,6 +4,7 @@
   <tr>
     <th><%= sortable "email" %></th>
     <th><%= sortable "expires" %></th>
+    <th><%= sortable "domain_id" %></th>
     <th><%= sortable "active" %></th>
     <th><%= sortable "edit" %></th>
   </tr>
@@ -11,6 +12,7 @@
     <tr>
       <td><%= email.email %></td>
       <td ><%= email.expires %></td>
+      <td ><%= email.domain.name %></td>
       <td><%=  email.active %></td>
       <td><%= link_to "Edit", [:edit,email] %></td>
     </tr>

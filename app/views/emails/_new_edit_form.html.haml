@@ -1,11 +1,18 @@
 .email.edit.form
   = form_for @email do |e|
     %p
-      = e.label :email
-      = e.text_field :email
+      = label_tag(:email,  "Email prefix")
+      = text_field_tag 'email[email]', (get_email_prefix(@email.email) if @email.email)
     %p
-      = e.label :alt_email
+      = e.label :domain
+      = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
+
+    %p
+      = label_tag(:alt_email,  "Alternative Email")
       = e.text_field :alt_email
+    %p
+      = e.label :forward_email
+      = e.text_field :forward_email
     %p
       = e.label :password
       = e.password_field :password
@@ -18,15 +25,10 @@
     %p
       = e.label :email_path_name
       = text_field_tag :email_path_name, (@email.email_path ? @email.email_path.path : "var/logs")
-    %p
-      = e.label :forward_email
-      = e.text_field :forward_email
+
     %p
       = e.label :receive
       = e.check_box :receive
-    %p
-      = e.label :domain
-      = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
     %p
       = e.submit
     

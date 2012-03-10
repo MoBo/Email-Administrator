@@ -3,7 +3,7 @@ class EmailsController < ApplicationController
     
   def index
     #@emails = Email.all
-    @emails = Email.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    @emails = Email.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
   end
 
   def show
@@ -21,6 +21,7 @@ class EmailsController < ApplicationController
     email_path = get_or_create_email_path(params[:email_path_name])
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
+      params[:email][:email] = params[:email][:email] + "@" + Domain.find(params[:email][:domain_id]).name
       
       if @email.update_attributes(params[:email])
         redirect_to @email, notice: 'Email was successfully updated.'
@@ -43,7 +44,7 @@ class EmailsController < ApplicationController
     email_path = get_or_create_email_path(params[:email_path_name])
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
-     
+      params[:email][:email] = params[:email][:email] + "@" + Domain.find(params[:email][:domain_id]).name
       @email = Email.new(params[:email])
       if @email.save
         redirect_to @email, notice: 'Email was successfully created.'

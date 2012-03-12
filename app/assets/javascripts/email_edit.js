@@ -1,42 +1,44 @@
+	var values = new Array();
 $(function() {
-	$(".remove_btn").click(function(){
-		$(this).parent().remove();
+	
+	var remove_fn = function(event){
+		event.preventDefault();
+		value = $('input', $(this).parent()).val();
+		values.push(value);
+		$(this).parent().remove();	
+	};
+
+	$(".remove_btn").click(remove_fn);
+	
+	$("input.submit_btn").click(function(event){
+		// var i = 0;
+		// for(deleted in values) {
+			// event.preventDefault();
+			// var input = $("<input>").attr("type", "hidden").attr("deleted", i).val(values[deleted]);
+			// $('#form1').append($(input));
+			// alert(values[deleted]);
+		// };
+		var allElements = ""
+		$('.forward_email_field').children().each(function(index, Element){	
+			var a = $("input", this).val();
+			i=0;
+			if(a) {
+				allElements += a + " "
+			};			
+		});
+		var input = $("<input>").attr("type", "hidden").attr("name", "email[forward_email]").val(allElements);
+		$('.edit_email').append($(input));
+		$('.forward_email_field').remove();
+		
 	});
-  $('.add_btn').click(function() {
-	  var num     = $('.clonedInput').length;
-	  var newNum  = num + 1; //new Number(num + 1);
 	
-	  var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
-	
-	  inputs = jQuery("input", newElem);
-	  for (i=0; i<inputs.length; ++i) {
-	    rex_id = /(.*_)([0-9])(_.*)/;
-	    rex_name = /(.*\[)([0-9])(\].*)/;
-	
-	    rex_id.exec(inputs[i].id)
-	    inputs[i].id = RegExp.$1 + (newNum - 1) + RegExp.$3
-	
-	    rex_name.exec(inputs[i].name)
-	    inputs[i].name = RegExp.$1 + (newNum - 1) + RegExp.$3
-	
-	    jQuery(inputs[i]).val("");
-	  }
-	
-	  $('#input' + num).after(newElem);
-	  $('#btnDel').attr('disabled', null);
-	  $('#input' + newNum + " #btn_delete_contact").remove();
-	  if (newNum == 5)
-	      $('#btnAdd').attr('disabled','disabled');
-  });
-
-  $('#btnDel').click(function() {
-      var num = $('.clonedInput').length;
-
-      $('#input' + num).remove();
-      $('#btnAdd').attr('disabled', null);
-
-      if (num-1 == 1)
-          $('#btnDel').attr('disabled','disabled');
-  });
+	$(".add_btn").click(function(event){
+		event.preventDefault();
+		$('.forward_email_field').append($(".hidden.forward_email").clone().removeClass("hidden"));
+		$(".remove_btn").unbind("click")
+		$(".remove_btn").bind("click",remove_fn);
+	});
 });
+
+
 

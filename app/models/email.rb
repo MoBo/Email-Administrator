@@ -64,6 +64,17 @@ class Email < ActiveRecord::Base
     write_attribute(:email, value)
   end
   
+  def password_salt=(password_salt)
+  end
+
+  def password_salt
+  end
+
+  def password_digest(password)
+    Digest::MD5.hexdigest(password)
+  end
+  
+  
   private
   
   # def encrypt_password

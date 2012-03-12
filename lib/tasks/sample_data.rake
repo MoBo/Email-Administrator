@@ -10,7 +10,7 @@ namespace :db do
       # :address, :password, :comment, :expires, :path, :foward_email, :receive, :alt_email 
       data = Hash.new
       domain = Domain.find(rand(1...5))
-      data[:email] =  Faker::Internet.user_name + "@" + domain.name
+      data[:email] =  Faker::Internet.user_name
       data[:password] = "aaaaaa"
       data[:comment] = Faker::Lorem.sentences(n+1)
       data[:expires] = n.day.from_now

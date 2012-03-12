@@ -64,6 +64,20 @@ class Email < ActiveRecord::Base
     write_attribute(:email, value)
   end
   
+    
+  def addForwardEmail(value)
+    #check if value already exists
+    if not (self.forward_email.downcase.include? value)
+      self.forward_email +=" " + value
+    else
+    end       
+  end
+  
+  def removeForwardEmail(value)
+    #check the value if it can be sliced
+    self.forward_email.slice! value.to_s
+  end
+  
   private
   
   # def encrypt_password

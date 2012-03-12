@@ -11,9 +11,16 @@
     %p
       = label_tag(:alt_email,  "Alternative Email")
       = e.text_field :alt_email
-    %p
-      = e.label :forward_email
-      = e.text_field :forward_email
+    .forward_email_field
+      = label_tag(:forward_email,  "Forward email")
+      - if @email.forward_email 
+        - @email.forward_email.split.each_with_index do |f, i| 
+          %p
+            = text_field_tag "email[forward_email]["+ i.to_s + "]" , f
+            = button_tag "Remove", :class => "remove_btn"
+      - else
+        = text_field_tag "email[forward_email][0]"
+      = button_tag "Add new field", :class => "add_btn"
     %p
       = e.label :password
       = e.password_field :password

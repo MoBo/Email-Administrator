@@ -38,4 +38,3 @@ end
 Factory.define :domain do |u|
   u.sequence(:name) { |n| "mike#{n}@awesome.com"}
 end
-

@@ -5,7 +5,7 @@ describe Email do
     @domain = Factory(:domain) 
     @path = Factory(:email_path)
     @email = Email.new(email: "user", 
-    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path_id: @path.id, )
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path_id: @path.id)
   end
   
   subject { @email }
@@ -39,12 +39,37 @@ describe Email do
     end
     
     describe "and unvalid forward adresse" do
-      before{@email.email = "ich@@sauli.de"}
+      before{@email.forward_email = "ich@@sauli.de"}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and empty alt_email adresse" do
+      before{@email.alt_email = nil}
       it{@email.should_not be_valid}
     end
     
     describe "and unvalid alt_email adresse" do
-      before{@email.email = "ich@@@@@@sauli.de"}
+      before{@email.alt_email = "ich@@@@@@sauli.de"}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and empty email_path_id" do
+      before{@email.email_path_id = nil}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and unvalid email_path_id" do
+      before{@email.email_path_id = "5"}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and empty domain_id" do
+      before{@email.domain_id = nil}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and unvalid domain_id" do
+      before{@email.domain_id = "5"}
       it{@email.should_not be_valid}
     end
   end

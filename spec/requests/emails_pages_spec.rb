@@ -7,9 +7,10 @@ describe "Email pages" do
   before{
     @domains = Array.new
     
-    10.times do
-      @domains.push Factory(:domain)
-    end
+    10.times {
+      @domains.push(Factory.create :domain_seq)
+    }
+    
     
     @email_path  = Factory(:email_path)
     @example_email = Factory(:email)
@@ -17,7 +18,7 @@ describe "Email pages" do
     
   }
   
-  it "should have 5 domains" do
+  it "should have 10 domains" do
     Domain.count.should be == 10
   end
   

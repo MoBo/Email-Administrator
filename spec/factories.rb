@@ -40,6 +40,15 @@ Factory.define :email_path do
   
 end
 
-Factory.define :domain do |u|
-  u.sequence(:name) { |n| "#{n}awesome.com"}
+Factory.sequence(:domain_name) do |n|
+  "#{n}example.com"
 end
+
+Factory.define :domain_seq, :class => :domain do |d|
+ d.name Factory.next(:domain_name)
+end
+
+Factory.define :domain do |d|
+ d.name "test.com"
+end
+

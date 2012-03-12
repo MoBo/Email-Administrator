@@ -8,11 +8,12 @@ class Email < ActiveRecord::Base
   belongs_to :domain
 
     
-  validates :email, :presence => true
+  validates :email, :presence => true ,:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
+    :message => "%{value} has invalid format" }
   validates :password, :presence => true
   validates :email_path_id, :presence => true
   validates :domain_id, :presence => true
-  # before_save :encrypt_password
+  before_validation :convert_email
   
  
   
@@ -44,9 +45,23 @@ class Email < ActiveRecord::Base
   public
   
   def domain=(value)
-    domain_value = Domain.find(value).name 
-    value_id = value
-    update_attributes(:domain_id => value, :email => get_email_prefix(self[:email]) + "@" + domain_value)
+    write_attribute(:domain_id , value.id)
+    write_attribute( :email ,get_email_prefix(self[:email]) + "@" + value.name)
+  end
+  
+  # def email=(value) 
+    # value = value + '@' + Domain.find(self.domain_id).name
+    # write_attribute(:email, value)
+  # end
+  
+  def convert_email
+    domain_value = Domain.find(self.domain_id).name
+    # if not self.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    value = self.email + '@' + domain_value
+    # else
+      # value = get_email_prefix(self.email) + "@" + domain_value  
+    # end
+    write_attribute(:email, value)
   end
   
   private

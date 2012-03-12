@@ -11,6 +11,7 @@ describe ResetPasswordsController do
   
   describe "GET 'create'" do
     before do
+      @domian = Factory(:domain)
       @email = Factory(:email)
     end
     it "should be redirected" do

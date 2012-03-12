@@ -1,9 +1,11 @@
 require "spec_helper"
 
 describe Email do
-  before do 
+  before do
+    @domain = Factory(:domain) 
     @path = Factory(:email_path)
-    @email = Factory(:email)
+    @email = Email.new(email: "user", 
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path_id: @path.id, )
   end
   
   subject { @email }
@@ -22,7 +24,31 @@ describe Email do
   it {should respond_to(:reset_password_token)}
   it {should respond_to(:reset_password_sent_at)}
   
-  it {should be_valid }
+  it {@email.should be_valid }
+  
+  describe "new email address" do
+    
+    describe "and empty email adresse" do
+      before{@email.email = ""}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and unvalid email adresse" do
+      before{@email.email = "ich@sauli.de"}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and unvalid forward adresse" do
+      before{@email.email = "ich@@sauli.de"}
+      it{@email.should_not be_valid}
+    end
+    
+    describe "and unvalid alt_email adresse" do
+      before{@email.email = "ich@@@@@@sauli.de"}
+      it{@email.should_not be_valid}
+    end
+  end
+  
   
   describe "editing email adress" do
    it "saving emtpy domain id should raise exception" do

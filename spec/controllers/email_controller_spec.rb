@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe EmailsController do
   
-  before :each do 
+  before :each do
+    @domain = Factory(:domain) 
     @path = Factory(:email_path)
     @email = Factory(:email)
   end

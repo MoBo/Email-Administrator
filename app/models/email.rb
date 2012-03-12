@@ -6,6 +6,12 @@ class Email < ActiveRecord::Base
   
   belongs_to :email_path
   belongs_to :domain
+
+    
+  validates :email, :presence => true
+  validates :password, :presence => true
+  validates :email_path_id, :presence => true
+  validates :domain_id, :presence => true
   # before_save :encrypt_password
   
  

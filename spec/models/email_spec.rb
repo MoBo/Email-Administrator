@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe Email do
   before do 
+    @path = Factory(:email_path)
     @email = Factory(:email)
   end
   

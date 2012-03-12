@@ -1,5 +1,6 @@
 .email.edit.form
   = form_for @email do |e|
+    = render 'shared/error_messages', object: e.object
     %p
       = label_tag(:email,  "Email prefix")
       = text_field_tag 'email[email]', (get_email_prefix(@email.email) if @email.email)

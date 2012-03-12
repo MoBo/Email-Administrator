@@ -21,12 +21,12 @@ class EmailsController < ApplicationController
     email_path = get_or_create_email_path(params[:email_path_name])
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
-      params[:email][:email] = params[:email][:email] + "@" + Domain.find(params[:email][:domain_id]).name
-      
       if @email.update_attributes(params[:email])
         redirect_to @email, notice: 'Email was successfully updated.'
       else
-        redirect_to [:edit,@email]
+        @domains = Domain.all
+        @domain = Domain.find(params[:email][:domain_id])
+        render 'edit' #redirect_to [:edit,@email]
       end
     else
       redirect_to [:edit,@email]
@@ -44,7 +44,6 @@ class EmailsController < ApplicationController
     email_path = get_or_create_email_path(params[:email_path_name])
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
-      params[:email][:email] = params[:email][:email] + "@" + Domain.find(params[:email][:domain_id]).name
       @email = Email.new(params[:email])
       if @email.save
         redirect_to @email, notice: 'Email was successfully created.'

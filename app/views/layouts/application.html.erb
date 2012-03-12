@@ -19,7 +19,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Email Administrator</a>
+        <a class="brand" href="/">Email Administrator</a>
         <div class="nav-collapse">
           <ul class="nav">
             <li><%= link_to "Server Settings"%></li>
@@ -42,6 +42,9 @@
       <div class="span9">
       	<%= yield %></div>
       <div class="span3">
+      	<% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
         <h2>Console</h2>
         <%= debug(params) if Rails.env.development? %>
       </div>

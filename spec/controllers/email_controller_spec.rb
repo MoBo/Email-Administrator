@@ -3,7 +3,8 @@ require 'spec_helper'
 describe EmailsController do
   
   before :each do 
-    @attr = {:email => "hallo@google.lt", :password => "testmeplease" };
+    @path = Factory(:email_path)
+    @email = Factory(:email)
   end
   
   describe "GET 'index'" do
@@ -13,44 +14,22 @@ describe EmailsController do
     end
   end
 
-  # describe "GET 'edit'" do
-    # it "returns http success" do
-      # get 'edit'
-      # response.should be_success
-    # end
-  # end
-# 
-  # describe "GET 'update'" do
-    # it "returns http success" do
-      # get 'update'
-      # response.should be_success
-    # end
-  # end
-
   describe "GET 'new'" do
     it "returns http success" do
       get 'new'
       response.should be_success
     end
   end
-
-  # describe "GET 'create'" do
-    # it "returns http success" do
-      # get 'create'
-      # response.should be_success
-    # end
-  # end
   
   describe "Email can be created" do
-    it "if password is provided" do
-      email = Email.create(@attr)
-      email.should be_valid
+    describe "if password is not provided" do
+      before { @email.password = "";@email.password_confirmation =""}
+      it{@email.should_not be_valid}
     end
   end
   
   describe "Email can be created" do
     before do 
-      @email = Factory(:email)
       @send_email = @email.send_reset_password_instructions
       @token = @email.reset_password_token
     end

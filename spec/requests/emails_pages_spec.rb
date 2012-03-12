@@ -75,7 +75,7 @@ describe "Email pages" do
       end
       
       it "should be the second domain accosiated with the new email" do
-        Email.last.domain.id.should be == 2
+        Email.last.domain.id.should be == 1
       end
     end
   end

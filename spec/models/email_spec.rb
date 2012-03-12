@@ -24,27 +24,19 @@ describe Email do
   it {should be_valid }
   
   describe "editing email adress" do
-    describe "should not be possible set without domain name" do
-      before do
-        @email.domain_id = nil
-        @email.email = "lala"
-      end
-      it {should_not be_valid}
-    end
-    
-    describe "must have an domain_id" do
-      before do
-        @email.domain_id = nil
-      end
-      it {should_not be_valid}
-    end
+   it "saving emtpy domain id should raise exception" do
+     e = @email.domain
+     e = nil
+     e.should raise_error
+   end
     
     describe "setting domain name, should also email adress be changed" do
       before do
-        @domain = Factory(:domain)
+        @domain = Domain.create(:name => "heise.de")
         @email_address_before = @email.email;
-        @email.domain_id = @domain.id
-        @email.address_after = @email.email       
+        @email.domain = @domain
+        @email.save
+        @email_address_after = @email.email       
       end
       it {@email_address_before.should_not match @email_address_after}
     end    

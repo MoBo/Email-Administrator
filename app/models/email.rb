@@ -1,4 +1,5 @@
-class Email < ActiveRecord::Base
+class Email < ActiveRecord::Base  
+  
   
   devise :database_authenticatable, :recoverable
   attr_accessible :email, :password, :password_confirmation, :comment, :expires, :email_path_id, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id
@@ -34,6 +35,14 @@ class Email < ActiveRecord::Base
     end
   end
   
+  public
+  
+  def domain=(value)
+    domain_value = Domain.find(value).name 
+    value_id = value
+    update_attributes(:domain_id => value, :email => get_email_prefix(self[:email]) + "@" + domain_value)
+  end
+  
   private
   
   # def encrypt_password
@@ -43,5 +52,9 @@ class Email < ActiveRecord::Base
   # test password
   def is_authenticated(passw_hash)
      self.password.eql?  BCrypt::Password.new(passw_hash)
+  end
+  
+  def get_email_prefix(email)
+    email.sub(/@.*/,"")
   end
 end

@@ -71,7 +71,7 @@ class Email < ActiveRecord::Base
   end
 
   def password_digest(password)
-    Digest::MD5.hexdigest(password)
+    password.crypt("2a")
   end
   
   

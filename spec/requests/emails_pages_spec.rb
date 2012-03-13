@@ -5,6 +5,12 @@ describe "Email pages" do
   subject { page }
   
   before{
+    @admin = Factory(:admin)
+    visit admin_session_path
+    fill_in "admin_email",  with: @admin.email
+    fill_in "admin_password",         with: @admin.password
+    click_button "Sign in"
+    
     @domains = Array.new
     
     10.times {

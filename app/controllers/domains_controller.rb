@@ -1,6 +1,4 @@
 class DomainsController < ApplicationController
-  
-  
   def index
     @domains = Domain.all
   end
@@ -37,7 +35,16 @@ class DomainsController < ApplicationController
     if @domain.save
       redirect_to @domain, notice: 'User was successfully created.'
     else
-      redirect_to [:new,:domains]
+      redirect_to [:new,:domain]
     end
+  end
+  
+  def destroy
+    e = Email.find_all_by_domain_id(params[:id])
+    e.each do |e|
+      e.destroy
+    end
+    Domain.find(params[:id]).destroy
+    redirect_to :action => 'index'
   end
 end

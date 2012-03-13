@@ -1,6 +1,6 @@
-	var values = new Array();
+var values = new Array();
 $(function() {
-	
+	$( "#email_expires_on" ).datepicker( { dateFormat: "yy-mm-dd"});
 	var remove_fn = function(event){
 		event.preventDefault();
 		value = $('input', $(this).parent()).val();

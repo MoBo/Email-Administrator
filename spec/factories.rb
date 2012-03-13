@@ -22,7 +22,10 @@ Factory.define :email do |email|
   email.domain_id               1
 end
 
-
+Factory.define :admin do |admin|
+  admin.email   "ich@sauli.de"
+  admin.password "foobar"
+end
 
 Factory.define :email_expires_reminder_send , :class => :email do |email|
   email.email                 "mhart4"

@@ -1,12 +1,5 @@
 EmailAdministrator::Application.routes.draw do
-  devise_scope :emails do
-    post "emails/password", :to => "devise/passwords#create"
-    get "/emails/password/new", :to => "devise/passwords#new"
-    get "/emails/password/edit", :to => "devise/passwords#edit"
-    put "/emails/password",:to => "devise/passwords#update"
-  end
-  
-  # devise_for :emails
+  devise_for :emails
   devise_for :admins
   
   resources :admins

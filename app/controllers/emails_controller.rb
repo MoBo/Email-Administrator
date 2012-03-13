@@ -23,7 +23,7 @@ class EmailsController < ApplicationController
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
       if @email.update_attributes(params[:email])
-        redirect_to @email, notice: 'Email was successfully updated.'
+        redirect_to emails_path, notice: 'Email was successfully updated.'
       else
         @domains = Domain.all
         @domain = Domain.find(params[:email][:domain_id])

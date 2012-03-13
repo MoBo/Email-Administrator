@@ -2,7 +2,9 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path_id, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id
+  attr_accessible :email, :password, :password_confirmation, :comment,
+   :expires_on, :email_path_id, :forward_email, :receive, :alt_email,
+    :reminder_send, :active, :domain_id, :email_path_string
   
   belongs_to :email_path
   belongs_to :domain

@@ -1,4 +1,10 @@
-%h3 Hallo
+%h3 Creted domains
+
+= link_to "Add new domain", new_domain_path
+
+.list
+
 - @domains.each do |d|
   %p
-    = link_to d.name, d
+    = link_to d.name, [:edit,d]
+

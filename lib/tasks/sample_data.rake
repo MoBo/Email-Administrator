@@ -15,7 +15,7 @@ namespace :db do
       data[:email] =  Faker::Internet.user_name
       data[:password] = "aaaaaa"
       data[:comment] = Faker::Lorem.sentences(n+1)
-      data[:expires] = n.day.from_now
+      data[:expires_on] = n.day.from_now
       data[:domain_id] = domain.id
       data[:email_path_id] = email_path.id
       data[:forward_email] = Faker::Internet.email if (n%3).zero?

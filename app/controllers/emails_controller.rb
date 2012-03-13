@@ -22,6 +22,9 @@ class EmailsController < ApplicationController
     email_path = get_or_create_email_path(params[:email_path_name])
     if email_path
       params[:email][:email_path_id] = email_path.id.to_s
+      if(params[:email][:password].empty?)
+        params[:email].delete :password
+      end
       if @email.update_attributes(params[:email])
         redirect_to emails_path, notice: 'Email was successfully updated.'
       else

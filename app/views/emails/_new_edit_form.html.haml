@@ -37,8 +37,8 @@
       = e.label :comment
       = e.text_field :comment
     %p
-      = e.label :expires
-      = e.text_field :expires
+      = e.label :expires_on
+      = e.text_field :expires_on
     %p
       = e.label :email_path_name
       = text_field_tag :email_path_name, (@email.email_path ? @email.email_path.path : "var/logs")

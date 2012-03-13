@@ -4,7 +4,7 @@ Factory.define :email_expires_in_two_days , :class => :email do |email|
   email.password_confirmation "foobar"
   email.forward_email         "mhart542@example.com"
   email.alt_email             "mhart542@example.com"
-  email.expires               Time.now + 2.days
+  email.expires_on               Time.now + 2.days
   email.reminder_send         false
   email.email_path_id               1
   email.domain_id             1
@@ -16,7 +16,7 @@ Factory.define :email do |email|
   email.password_confirmation "foobar"
   email.forward_email         "mhart2@example.com"
   email.alt_email             "mhart2@example.com"
-  email.expires               Time.now + 50.days
+  email.expires_on               Time.now + 50.days
   email.reminder_send         false
   email.email_path_id           1
   email.domain_id               1
@@ -33,7 +33,7 @@ Factory.define :email_expires_reminder_send , :class => :email do |email|
   email.password_confirmation "foobar"
   email.forward_email         "mhart5@example.com"
   email.alt_email             "mhart6@example.com"
-  email.expires               Time.now + 2.days
+  email.expires_on               Time.now + 2.days
   email.reminder_send         true
   email.email_path_id         1
   email.domain_id             1

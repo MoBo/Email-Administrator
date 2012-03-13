@@ -13,7 +13,7 @@ describe Email do
   it {should respond_to(:email)}
   it {should respond_to(:encrypted_password)}
   it {should respond_to(:comment)}
-  it {should respond_to(:expires)}
+  it {should respond_to(:expires_on)}
   it {should respond_to(:email_path_id)}
   it {should respond_to(:domain_id)}
   it {should respond_to(:forward_email)}

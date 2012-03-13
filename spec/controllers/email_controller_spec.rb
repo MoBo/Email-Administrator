@@ -24,12 +24,12 @@ describe EmailsController do
     end
   end
   
-  describe "Email can be created" do
-    describe "if password is not provided" do
-      before { @email.password = "";@email.password_confirmation =""}
-      it{@email.should_not be_valid}
-    end
-  end
+  # describe "Email can be created" do
+    # describe "if password is not provided" do
+      # before { @email.password = "";@email.password_confirmation =""}
+      # it{@email.should_not be_valid}
+    # end
+  # end
   
   describe "Email can be created" do
     before do 

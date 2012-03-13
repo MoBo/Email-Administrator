@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires, :email_path_id, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path_id, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id
   
   belongs_to :email_path
   belongs_to :domain
@@ -10,7 +10,7 @@ class Email < ActiveRecord::Base
     
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
-  validates :password, :presence => {:message => 'Email cannot be blank'}, :on=> :create
+  validates :password, :presence => {:message => 'Password cannot be blank'}, :on=> :create
   validates :email_path_id, :presence => {:message => 'Email path cannot be blank'}
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain
@@ -23,11 +23,11 @@ class Email < ActiveRecord::Base
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where(:expires => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_send => false)
   end
   
   def self.get_emails_expired
-    Email.where("expires >= ? and active = ?",Time.now,true)
+    Email.where("expires_on >= ? and active = ?",Time.now,true)
   end
  
   def set_reminder_send(value)

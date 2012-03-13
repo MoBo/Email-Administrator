@@ -1,5 +1,8 @@
 EmailAdministrator::Application.routes.draw do
   devise_for :emails
+  devise_for :admins
+  
+  resources :admins
   resources :domains
   resources :password_resets
   resources :reset_passwords

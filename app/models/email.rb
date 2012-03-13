@@ -10,7 +10,7 @@ class Email < ActiveRecord::Base
     
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
-  validates :password, :presence => {:message => 'Email cannot be blank'}
+  validates :password, :presence => {:message => 'Email cannot be blank'}, :on=> :create
   validates :email_path_id, :presence => {:message => 'Email path cannot be blank'}
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain

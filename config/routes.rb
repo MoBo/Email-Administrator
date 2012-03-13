@@ -6,6 +6,7 @@ EmailAdministrator::Application.routes.draw do
   resources :domains
   resources :password_resets
   resources :reset_passwords
+  resources :email_paths
   resources :emails do
     collection do
          get 'search'

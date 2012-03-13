@@ -1,0 +1,11 @@
+%h3 Creted Paths
+
+= link_to "Add new email path", new_email_path_path, :class => "btn btn-primary"
+
+.list
+
+- @email_paths.each do |d|
+  %p
+    = link_to d.path, [:edit,d]
+    = link_to 'delete', email_path_path(d), :confirm => "Are you sure you want to delete the domain #{d.path}? Also all emails, that belongs to this domain will be deleted", :method => :delete, :class => "btn btn-danger"
+    

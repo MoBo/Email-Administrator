@@ -4,4 +4,7 @@ class EmailPath < ActiveRecord::Base
   
   has_many :emails
   
+  validates :path_type, :presence => true
+  validates :path, :presence => true
+  
 end

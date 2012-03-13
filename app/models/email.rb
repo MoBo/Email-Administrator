@@ -8,14 +8,18 @@ class Email < ActiveRecord::Base
   belongs_to :domain
 
     
-  validates :email, :presence => true ,:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
+  validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
-  validates :password, :presence => true
-  validates :email_path_id, :presence => true
-  validates :domain_id, :presence => true
+  validates :password, :presence => {:message => 'Email cannot be blank'}
+  validates :email_path_id, :presence => {:message => 'Email path cannot be blank'}
+  validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
+  validates_associated :domain
+  validates_associated :email_path
+  validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
+    :message => "Alternative email: %{value} has invalid format" }, :allow_nil => true
+    
   before_validation :convert_email
   
- 
   
   #static methods
   def self.get_emails_expires_soon
@@ -45,8 +49,8 @@ class Email < ActiveRecord::Base
   public
   
   def domain=(value)
-    write_attribute(:domain_id , value.id)
-    write_attribute( :email ,get_email_prefix(self[:email]) + "@" + value.name)
+    update_attribute(:domain_id , value.id)
+    update_attribute( :email ,get_email_prefix(self[:email]) + "@" + value.name)
   end
   
   # def email=(value) 
@@ -57,11 +61,12 @@ class Email < ActiveRecord::Base
   def convert_email
     domain_value = Domain.find(self.domain_id).name
     # if not self.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    self.email = get_email_prefix(self.email)
     value = self.email + '@' + domain_value
     # else
       # value = get_email_prefix(self.email) + "@" + domain_value  
     # end
-    write_attribute(:email, value)
+    update_attribute(:email, value)
   end
   
   def password_salt=(password_salt)

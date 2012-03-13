@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Domain do
   before do
-    @domain = Domain.new(name: "foobar.de")
+    @domain = Domain.create(name: "foobar.de")
   end
    
   subject { @domain }

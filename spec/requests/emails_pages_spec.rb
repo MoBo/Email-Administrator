@@ -68,17 +68,6 @@ describe "Email pages" do
         expect { click_button "Create Email" }.not_to change(EmailPath, :count)
       end
     end
-    
-    describe "select second domain" do
-      before do
-        select(@domains[1].name, :from => 'email_domain_id')
-        click_button("Create Email")
-      end
-      
-      it "should be the second domain accosiated with the new email" do
-        Email.last.domain.id.should be == 2
-      end
-    end
   end
   
   describe "edit" do

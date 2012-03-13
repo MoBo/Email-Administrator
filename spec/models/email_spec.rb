@@ -28,6 +28,17 @@ describe Email do
   
   describe "new email address" do
     
+    
+    
+    
+    describe "Email cant be created" do
+      describe "if password is not provided" do
+       before { @email_temp = Email.new(email: "user@heise.de",
+    password: "", password_confirmation: "", domain_id: @domain.id, email_path_id: @path.id)}
+       it{@email_temp.should_not be_valid}
+      end
+    end
+    
     describe "and empty email address" do
       before{@email.email = ""}
       it{@email.should_not be_valid}

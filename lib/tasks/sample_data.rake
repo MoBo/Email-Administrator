@@ -1,6 +1,8 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+    Admin.create(email: "ich@sauli.de", password: "foobar")
+    
     5.times do |n|
       name  = Faker::Internet.domain_name
       Domain.create!(name: name)  

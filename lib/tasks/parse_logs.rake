@@ -23,19 +23,20 @@ class LogParser
     # end
     
     @m = ActiveRecord::Base.connection()
-
-    if $purge then
-      delete_datetime = (Time.now - $purge.to_i*24*60*60).strftime("%Y%m%d%H%M%S")
-      sql = "delete from incoming_logs,outgoing using incoming_logs,outgoing where incoming_logs.id=outgoing.id and action_time < '#{delete_datetime}'"
-      @m.execute sql
-      
-      sql = "delete from incoming_logs where arrive_time < '#{delete_datetime}' and message_id is null"
-      @m.query sql
-    end
+    #TODO Should also work 
+    # if $purge then
+      # delete_datetime = (Time.now - $purge.to_i*24*60*60).strftime("%Y%m%d%H%M%S")
+      # sql = "delete from incoming_logs,outgoing using incoming_logs,outgoing where incoming_logs.id=outgoing.id and action_time < '#{delete_datetime}'"
+      # @m.execute sql
+#       
+      # sql = "delete from incoming_logs where arrive_time < '#{delete_datetime}' and message_id is null"
+      # @m.query sql
+    # end
     
     
     unless $follow then
-      ARGF.each do |line|
+      file = File.open('/home/sauli/mail.info')
+      file.each do |line|
         proc_line line
       end
       exit
@@ -183,18 +184,20 @@ class LogParser
   end
 
   def set_old(qid)
-    @m.query("update incoming_logs set old=1 where queue_id='#{@m.q qid}'")
+    @m.execute("update incoming_logs set old=1 where queue_id='#{qid}'")
   end
 
   def update_incoming(hash)
     hash["old"] = "0" unless hash.key? "old"
-    s = hash.map{|k,v| $incoming_fields.include?(k) ? "#{k}='#{@m.q v}'" : nil}.compact.join(",")
+    s = hash.map{|k,v| $incoming_fields.include?(k) ? "#{k}='#{v}'" : nil}.compact.join(",")
     if hash.key?("id") and hash["id"] then
-      @m.query("update incoming_logs set #{s} where id='#{@m.q hash["id"]}'")
+      @m.execute("update incoming_logs set #{s} where id='#{hash["id"]}'")
       id = hash["id"].to_i
     else
-      @m.query("insert incoming_logs set #{s}")
-    id = @m.insert_id
+      incoming = IncomingLog.create(hash)
+      #@m.execute("insert incoming_logs set #{s}")
+      #id = @m.insert_id
+      id = incoming.id
     end
     id
   end
@@ -205,7 +208,7 @@ class LogParser
     hash.map do |k,v|
       if $outgoing_fields.include?(k) then
         var << k
-        val << "'#{@m.q v}'"
+        val << "'#{v}'"
       end
     end
     @m.query("insert into outgoing (#{var.join(",")}) values (#{val.join(",")})")
@@ -269,9 +272,11 @@ class LogParser
     return
     end
 
-    h = @m.query("select * from incoming_logs where server='#{@m.q servername}' and queue_id='#{@m.q qid}' and old=0").fetch_hash
-    unless h then
+    h = @m.execute("select * from incoming_logs where server='#{servername}' and queue_id='#{qid}' and old=0")
+    if h.empty?
       h = {}
+    else
+      h = Hash[*h.flatten]
     end
     case content
     when "removed"
@@ -288,6 +293,9 @@ class LogParser
       update_incoming h
     when /^message-id=(.*)/no
       mid = $1
+      
+      puts h.class
+      puts mid.class 
       if h["message_id"] and h["message_id"] != mid then
         set_old qid
         hh = {"server"=>servername, "queue_id"=>qid, "message_id"=>mid, "arrive_time"=>datetime}
@@ -321,7 +329,7 @@ class LogParser
     f.each do |line|
       break unless line[-1] == ?\n
       proc_line line
-      @m.query("replace work_logs set filename='#{@m.q fname}',inode='#{f.stat.ino}',pos='#{f.pos}'")
+      @m.execute("replace work_logs set filename='#{fname}',inode='#{f.stat.ino}',pos='#{f.pos}'")
     end
   end
 

@@ -19,19 +19,16 @@ class EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id])
-    email_path = get_or_create_email_path(params[:email_path_name])
-    if email_path
-      params[:email][:email_path_id] = email_path.id.to_s
-      if(params[:email][:password].empty?)
-        params[:email].delete :password
-      end
-      if @email.update_attributes(params[:email])
-        redirect_to emails_path, notice: 'Email was successfully updated.'
-      else
-        @domains = Domain.all
-        @domain = Domain.find(params[:email][:domain_id])
-        render 'edit' #redirect_to [:edit,@email]
-      end
+    if(params[:email][:password].empty?)
+      params[:email].delete :password
+    end
+    if @email.update_attributes(params[:email])
+      redirect_to emails_path, notice: 'Email was successfully updated.'
+    else
+      @domains = Domain.all
+      @domain = Domain.find(params[:email][:domain_id])
+      render 'edit' #redirect_to [:edit,@email]
+    end
     else
       redirect_to [:edit,@email]
     end
@@ -65,17 +62,6 @@ class EmailsController < ApplicationController
   # end
   
   private
-  
-  def get_or_create_email_path(email_path_name)
-    # Check if email path already exits otherwise create new path
-    if not email_path_name.empty?
-      email_path = EmailPath.find_by_path(email_path_name)
-      if not email_path
-        email_path = EmailPath.create(:path => params[:email_path_name], :path_type => "custom")
-      end
-      email_path
-    end
-  end
   
   def sort_column
     Email.column_names.include?(params[:sort]) ? params[:sort] : "email"

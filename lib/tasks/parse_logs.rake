@@ -211,7 +211,8 @@ class LogParser
         val << "'#{v}'"
       end
     end
-    @m.query("insert into outgoing (#{var.join(",")}) values (#{val.join(",")})")
+    OutgoingLog.create(hash)
+    #@m.query("insert into outgoing (#{var.join(",")}) values (#{val.join(",")})")
   end
 
   def proc_line(line)
@@ -272,11 +273,12 @@ class LogParser
     return
     end
 
-    h = @m.execute("select * from incoming_logs where server='#{servername}' and queue_id='#{qid}' and old=0")
-    if h.empty?
+    h = IncomingLog.find_by_server_and_queue_id_and_old(servername,qid,false)
+    #h = @m.execute("select * from incoming_logs where server='#{servername}' and queue_id='#{qid}' and old=0")
+    if not h
       h = {}
     else
-      h = Hash[*h.flatten]
+      h = h.to_hash
     end
     case content
     when "removed"
@@ -293,9 +295,6 @@ class LogParser
       update_incoming h
     when /^message-id=(.*)/no
       mid = $1
-      
-      puts h.class
-      puts mid.class 
       if h["message_id"] and h["message_id"] != mid then
         set_old qid
         hh = {"server"=>servername, "queue_id"=>qid, "message_id"=>mid, "arrive_time"=>datetime}

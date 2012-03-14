@@ -25,8 +25,8 @@ class ServerLog < ActiveRecord::Migration
         t.string :rdomain 
         t.string :status 
         t.string :relay 
-        t.integer :int
-        t.text :text
+        t.integer :delay
+        t.text :info
     end
     
     add_index :outgoing_logs, :recipient

@@ -3,8 +3,9 @@ require 'spec_helper'
 describe EmailsController do
   
   before :each do
+    @admin_domain = Factory(:admin_domain)
     @admin = Factory(:admin)
-    sign_in :admin, @admin
+    sign_in :email, @admin
     @domain = Factory(:domain) 
     @email = Factory(:email)
   end

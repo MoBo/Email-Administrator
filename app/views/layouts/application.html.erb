@@ -25,7 +25,7 @@
             <li><%= link_to "Server Settings"%></li>
             <li><%= link_to "Stats" %></li>
             <li><%= link_to "Domains", domains_path %></li>
-            <li><%= link_to_if admin_signed_in?, "Logout", destroy_admin_session_path, :method => :delete%></li>
+            <li><%= link_to_if email_signed_in?, "Logout", destroy_email_session_path, :method => :delete%></li>
           </ul>
         </div>
       </div>

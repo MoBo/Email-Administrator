@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_filter :authenticate_email!
   
   def index
     @domains = Domain.all

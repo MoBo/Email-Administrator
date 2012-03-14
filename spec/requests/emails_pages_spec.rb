@@ -5,10 +5,11 @@ describe "Email pages" do
   subject { page }
   
   before{
+    @admin_domain = Factory(:admin_domain)
     @admin = Factory(:admin)
-    visit admin_session_path
-    fill_in "admin_email",  with: @admin.email
-    fill_in "admin_password",         with: @admin.password
+    visit email_session_path
+    fill_in "email_email",  with: @admin.email
+    fill_in "email_password",         with: @admin.password
     click_button "Sign in"
     
     @domains = Array.new
@@ -21,7 +22,7 @@ describe "Email pages" do
   }
   
   it "should have 10 domains" do
-    Domain.count.should be == 10
+    Domain.count.should be == 11
   end
   
   describe "new page" do

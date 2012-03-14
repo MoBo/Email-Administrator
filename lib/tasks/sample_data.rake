@@ -1,12 +1,13 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    Admin.create(email: "ich@sauli.de", password: "foobar")
     
+    Domain.create!(name: "sauli.de")
     5.times do |n|
       name  = Faker::Internet.domain_name
       Domain.create!(name: name)  
     end
+    Email.create!(email: "ich@sauli.de", password: "foobar", domain_id: 1,admin: "true", email_path: "/var/logs/")
     60.times do |n|
       # :address, :password, :comment, :expires, :path, :foward_email, :receive, :alt_email 
       data = Hash.new

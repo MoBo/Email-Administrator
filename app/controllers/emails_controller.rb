@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_filter :authenticate_email!
   helper_method :sort_column, :sort_direction
     
   def index

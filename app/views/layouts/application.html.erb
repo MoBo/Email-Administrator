@@ -22,9 +22,11 @@
         <a class="brand" href="/">Email Administrator</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><%= link_to "Server Settings"%></li>
-            <li><%= link_to "Stats" %></li>
+            <li><%= link_to "Emails", emails_path %></li>
             <li><%= link_to "Domains", domains_path %></li>
+            <li><%= link_to "Stats" %></li>
+          </ul>
+          <ul class="nav pull-right">
             <li><%= link_to_if email_signed_in?, "Logout", destroy_email_session_path, :method => :delete%></li>
           </ul>
         </div>
@@ -35,16 +37,16 @@
   <div class="container">
     <div class="row">
    <% if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
+    <p class="alert alert-info"><%= flash[:notice] %></p>
     <% end %>
     <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
+      <p class="alert alert-error"><%= flash[:error] %></p>
     <% end %>
       <div class="span9">
       	<%= yield %></div>
       <div class="span3">
       	<% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
+          <div class="alert alert-<%= key %>"><%= value %></div>
         <% end %>
         <h2>Console</h2>
         <%= debug(params) if Rails.env.development? %>

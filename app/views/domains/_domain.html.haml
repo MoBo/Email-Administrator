@@ -1,0 +1,3 @@
+%tr
+  %td= link_to domain.name, [:edit,domain]
+  %td= link_to 'Delete', domain_path(domain), :confirm => "Are you sure you want to delete the domain #{domain.name}? Also all emails, that belongs to this domain will be deleted", :method => :delete, :class => "btn btn-danger"

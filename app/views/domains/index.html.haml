@@ -1,11 +1,9 @@
-%h3 Creted domains
+%table.table.table-striped
+  %thead
+    %tr
+      %th Domain
+      %th
+  %tbody
+    = render @domains
 
-= link_to "Add new domain", new_domain_path, :class => "btn btn-primary"
-
-.list
-
-- @domains.each do |d|
-  %p
-    = link_to d.name, [:edit,d]
-    = link_to 'delete', domain_path(d), :confirm => "Are you sure you want to delete the domain #{d.name}? Also all emails, that belongs to this domain will be deleted", :method => :delete, :class => "btn btn-danger"
-    
+%p= link_to "Add Domain", new_domain_path, :class => "btn btn-success"

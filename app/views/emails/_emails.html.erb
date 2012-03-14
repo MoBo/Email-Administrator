@@ -1,6 +1,8 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
 
+<%= page_navigation_links @emails %>
+
 <table class="table table-striped">
   <thead>
     <tr>

@@ -25,4 +25,4 @@ production:
   pool: 5
   username: email_admin
   password:
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock

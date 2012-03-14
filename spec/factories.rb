@@ -22,9 +22,16 @@ Factory.define :email do |email|
   email.domain_id               1
 end
 
-Factory.define :admin do |admin|
+Factory.define :admin , :class => :email do |admin|
   admin.email   "ich@sauli.de"
   admin.password "foobar"
+  admin.email_path "var/logs/"
+  admin.domain_id               1
+  admin.admin "true"
+end
+
+Factory.define :admin_domain, :class => :domain do |domain|
+  domain.name "sauli.de"
 end
 
 Factory.define :email_expires_reminder_send , :class => :email do |email|

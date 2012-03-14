@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
   belongs_to :domain
 
     
@@ -67,6 +67,19 @@ class Email < ActiveRecord::Base
   def password_digest(password)
     password.crypt("2a")
   end
+  
+  alias :devise_valid_password? :valid_password?
+  def valid_password?(password)
+    if self.admin
+      begin
+        devise_valid_password?(password)
+      rescue BCrypt::Errors::InvalidHash
+        password.crypt(encrypted_password[0..2]) == encrypted_password
+      end
+    end
+  end
+  
+  
   
   def addForwardEmail(value)
     #check if value already exists

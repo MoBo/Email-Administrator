@@ -3,9 +3,8 @@ require "spec_helper"
 describe Email do
   before do
     @domain = Factory(:domain) 
-    @path = Factory(:email_path)
     @email = Email.new(email: "user@heise.de",
-    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path_id: @path.id)
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs')
   end
   
   subject { @email }
@@ -14,7 +13,7 @@ describe Email do
   it {should respond_to(:encrypted_password)}
   it {should respond_to(:comment)}
   it {should respond_to(:expires_on)}
-  it {should respond_to(:email_path_id)}
+  it {should respond_to(:email_path)}
   it {should respond_to(:domain_id)}
   it {should respond_to(:forward_email)}
   it {should respond_to(:receive)}
@@ -34,7 +33,7 @@ describe Email do
     describe "Email cant be created" do
       describe "if password is not provided" do
        before { @email_temp = Email.new(email: "user@heise.de",
-    password: "", password_confirmation: "", domain_id: @domain.id, email_path_id: @path.id)}
+    password: "", password_confirmation: "", domain_id: @domain.id, email_path: '/var/logs')}
        it{@email_temp.should_not be_valid}
       end
     end
@@ -66,14 +65,14 @@ describe Email do
       # it{@email.should_not be_valid}
     # end
     
-    describe "and empty email_path_id" do
-      before{@email.email_path_id = nil}
+    describe "and empty email_path" do
+      before{@email.email_path = nil}
       it{@email.should_not be_valid}
     end
     
-    describe "and not existing email_path_id" do
-      before{@email.email_path_id = "600"}
-      it{@email.should raise_error}
+    describe "and blank email_path" do
+      before{@email.email_path = ""}
+      it{@email.should_not be_valid}
     end
     
     describe "and empty domain_id" do

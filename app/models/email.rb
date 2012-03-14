@@ -48,7 +48,7 @@ class Email < ActiveRecord::Base
   
   def domain=(value)
     update_attribute(:domain_id , value.id)
-    update_attribute( :email ,get_email_prefix(self[:email]) + "@" + value.name)
+    update_attribute(:email ,get_email_prefix(self[:email]) + "@" + value.name)
   end
   
   # def email=(value) 
@@ -97,17 +97,6 @@ class Email < ActiveRecord::Base
   def password_validation_required?
     self.encrypted_password.blank? || !self.password.blank?
   end
-  
-  # def encrypt_password
-    # self.password = BCrypt::Password.create(self.password)
-  # end
-  
-  # test password
-  
-  
-  # def is_authenticated(passw_hash)
-     # self.password.eql?  BCrypt::Password.new(passw_hash)
-  # end
   
   def get_email_prefix(email)
     email.sub(/@.*/,"")

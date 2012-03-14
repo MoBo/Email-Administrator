@@ -6,7 +6,6 @@ describe EmailsController do
     @admin = Factory(:admin)
     sign_in :admin, @admin
     @domain = Factory(:domain) 
-    @path = Factory(:email_path)
     @email = Factory(:email)
   end
   

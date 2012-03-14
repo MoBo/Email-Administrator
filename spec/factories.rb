@@ -6,7 +6,7 @@ Factory.define :email_expires_in_two_days , :class => :email do |email|
   email.alt_email             "mhart542@example.com"
   email.expires_on               Time.now + 2.days
   email.reminder_send         false
-  email.email_path_id               1
+  email.email_path            "var/logs/"
   email.domain_id             1
 end
 
@@ -18,7 +18,7 @@ Factory.define :email do |email|
   email.alt_email             "mhart2@example.com"
   email.expires_on               Time.now + 50.days
   email.reminder_send         false
-  email.email_path_id           1
+  email.email_path            "var/logs/"
   email.domain_id               1
 end
 
@@ -35,12 +35,8 @@ Factory.define :email_expires_reminder_send , :class => :email do |email|
   email.alt_email             "mhart6@example.com"
   email.expires_on               Time.now + 2.days
   email.reminder_send         true
-  email.email_path_id         1
+  email.email_path            "var/logs/"
   email.domain_id             1
-end
-
-Factory.define :email_path do
-  
 end
 
 Factory.sequence(:domain_name) do |n|

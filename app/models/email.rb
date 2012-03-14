@@ -8,12 +8,13 @@ class Email < ActiveRecord::Base
     
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
-  validates :password, :presence => {:message => 'Password cannot be blank'}, :on=> :create
+  validates :password, :presence => {:message => 'Password cannot be blank'}, :if => :password_validation_required?
   validates :email_path, :presence => {:message => 'Email path cannot be blank'}
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain
+
   validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
-    :message => "Alternative email: %{value} has invalid format" }, :allow_nil => true
+    :message => "Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true
     
   before_validation :convert_email
   
@@ -55,16 +56,7 @@ class Email < ActiveRecord::Base
     # write_attribute(:email, value)
   # end
   
-  def convert_email
-    domain_value = Domain.find(self.domain_id).name
-    # if not self.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-    self.email = get_email_prefix(self.email)
-    value = self.email + '@' + domain_value
-    # else
-      # value = get_email_prefix(self.email) + "@" + domain_value  
-    # end
-    update_attribute(:email, value)
-  end
+  
   
   def password_salt=(password_salt)
   end
@@ -91,14 +83,31 @@ class Email < ActiveRecord::Base
   
   private
   
+  def convert_email
+    domain_value = Domain.find(self.domain_id).name
+    # if not self.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    self.email = get_email_prefix(self.email)
+    self.email = self.email + '@' + domain_value
+    # else
+      # value = get_email_prefix(self.email) + "@" + domain_value  
+    # end
+    #update_attribute(:email, value)
+  end
+  
+  def password_validation_required?
+    self.encrypted_password.blank? || !self.password.blank?
+  end
+  
   # def encrypt_password
     # self.password = BCrypt::Password.create(self.password)
   # end
   
   # test password
-  def is_authenticated(passw_hash)
-     self.password.eql?  BCrypt::Password.new(passw_hash)
-  end
+  
+  
+  # def is_authenticated(passw_hash)
+     # self.password.eql?  BCrypt::Password.new(passw_hash)
+  # end
   
   def get_email_prefix(email)
     email.sub(/@.*/,"")

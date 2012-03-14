@@ -22,9 +22,11 @@
         <a class="brand" href="/">Email Administrator</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><%= link_to "Server Settings"%></li>
-            <li><%= link_to "Stats" %></li>
+            <li><%= link_to "Emails", emails_path %></li>
             <li><%= link_to "Domains", domains_path %></li>
+            <li><%= link_to "Stats" %></li>
+          </ul>
+          <ul class="nav pull-right">
             <li><%= link_to_if admin_signed_in?, "Logout", destroy_admin_session_path, :method => :delete%></li>
           </ul>
         </div>

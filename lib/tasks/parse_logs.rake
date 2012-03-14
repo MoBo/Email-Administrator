@@ -1,7 +1,7 @@
 namespace :log do
   desc "Fill database with sample data"
   task parse: :environment do
-    #LogParser.new
+    LogParser.new
   end
 end
 
@@ -21,11 +21,14 @@ class LogParser
     # self.quote(s ? s.to_s : "")
     # end
     # end
+    
+    @m = ActiveRecord::Base.connection()
 
     if $purge then
       delete_datetime = (Time.now - $purge.to_i*24*60*60).strftime("%Y%m%d%H%M%S")
       sql = "delete from incoming_logs,outgoing using incoming_logs,outgoing where incoming_logs.id=outgoing.id and action_time < '#{delete_datetime}'"
-      @m.query sql
+      @m.execute sql
+      
       sql = "delete from incoming_logs where arrive_time < '#{delete_datetime}' and message_id is null"
       @m.query sql
     end
@@ -151,11 +154,11 @@ class LogParser
     # exit 1
   # end
 
-  $year = nil
-  $follow = nil
-  $debug = nil
-  # delete all records older than 14 days
-  $purge = 14
+  # $year = nil
+  # $follow = nil
+  # $debug = nil
+  # # delete all records older than 14 days
+  # $purge = 14
 
   # @m = Mysql.new(opt["mysql-server"], opt["mysql-user"], opt["mysql-passwd"], opt["mysql-db"])
 # 
@@ -165,13 +168,13 @@ class LogParser
     # end
   # end
 
-  if $purge then
-    delete_datetime = (Time.now - $purge.to_i*24*60*60).strftime("%Y%m%d%H%M%S")
-    sql = "delete from incoming_logs,outgoing using incoming_logs,outgoing where incoming_logs.id=outgoing.id and action_time < '#{delete_datetime}'"
-    @m.query sql
-    sql = "delete from incoming_logs where arrive_time < '#{delete_datetime}' and message_id is null"
-  @m.query sql
-  end
+  # if $purge then
+    # delete_datetime = (Time.now - $purge.to_i*24*60*60).strftime("%Y%m%d%H%M%S")
+    # sql = "delete from incoming_logs,outgoing using incoming_logs,outgoing where incoming_logs.id=outgoing.id and action_time < '#{delete_datetime}'"
+    # @m.query sql
+    # sql = "delete from incoming_logs where arrive_time < '#{delete_datetime}' and message_id is null"
+  # @m.query sql
+  # end
 
   def to_time(d)
     mon, day, hour, min, sec = d.split /\s+|:/

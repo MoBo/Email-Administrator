@@ -1,0 +1,17 @@
+= hidden_field_tag :direction, params[:direction]
+= hidden_field_tag :sort, params[:sort]
+
+= page_navigation_links @emails
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= sortable "email"
+      %th= sortable "expires_on"
+      %th= sortable "domain_id"
+      %th= sortable "active"
+      %th
+  %tbody
+    =render @emails
+
+= page_navigation_links @emails

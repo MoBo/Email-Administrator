@@ -6,7 +6,6 @@ require 'rufus/scheduler'
 scheduler = Rufus::Scheduler.start_new
  
 scheduler.every("15m") do
-  Rails.logger "Deleting user "
    puts "deleting User"
    @emails = Email.get_emails_expires_soon
    # send emails to all in emails container
@@ -24,7 +23,7 @@ scheduler.every("15m") do
    
 end
 
-scheduler.every("10m") do
-  Rails.logger "Executing the parsing "
-  exec "var/www/Email-Administrator/lib/tasks/log2mysql.rb --mysql-server localhost --mysql-user root --mysql-passwd root --mysql-db postfix /var/log/mail.info"
+scheduler.every("2s") do
+  puts "Running script"
+  exec "ruby " + Rails.root.to_s + "/pflog2mysql.rb  --mysql-server localhost --mysql-user root --mysql-passwd root --mysql-db postfix " + Rails.root.to_s + "mail.info"
 end

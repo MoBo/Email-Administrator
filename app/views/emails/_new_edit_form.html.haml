@@ -3,16 +3,18 @@
     = render 'shared/error_messages', object: e.object
     .checkBoxes.float
       %p.well
-        = e.label :can_receive, :class => "label label-info"
+        = e.label :active, :class => "label label-info"
+        = e.check_box :active
+        = e.label :can_receive, :class => "label label-success"
         = e.check_box :can_receive
-        = e.label :can_send, :class => "label label-info"
+        = e.label :can_send, :class => "label label-warning"
         = e.check_box :can_send
-        = e.label :admin, :class => "label label-info"
+        = e.label :admin, :class => "label label-inverse"
         = e.check_box :admin
     .float   
       %p
         = label_tag(:email,  "Email prefix")
-        = text_field_tag 'email[email]', (get_email_prefix(@email.email) if @email.email)
+        = text_field_tag 'email[email]', (prefix_for(@email.email) if @email.email)
       %p
         = e.label :domain
         = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
@@ -48,9 +50,9 @@
         = e.text_area :comment
       %p
         = e.label :expires_on
-        = text_field_tag 'email[expires_on]', get_expire_date(@email)
+        = text_field_tag 'email[expires_on]'
         = e.label :email_path
-        = text_field_tag 'email[email_path]', get_email_path(@email)
+        = text_field_tag 'email[email_path]', maildir_for(@email)
       %p
         = e.submit :class => "submit_btn btn"
   

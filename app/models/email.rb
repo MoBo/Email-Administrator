@@ -1,5 +1,5 @@
 class Email < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable
+  devise :database_authenticatable, :recoverable, :lockable
 
   attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forwards, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
   belongs_to :domain
@@ -54,7 +54,9 @@ class Email < ActiveRecord::Base
     # write_attribute(:email, value)
   # end
   
-  
+  def send_unlock_instructions
+    EmailMailer.expires_email(self).deliver
+  end
   
   def password_salt=(password_salt)
   end

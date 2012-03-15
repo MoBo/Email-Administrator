@@ -7,9 +7,11 @@ class CheckEmailsForExpire
     @emails = Email.get_emails_expires_soon
     # send emails to all in emails container
     @emails.each do |email|
-      EmailMailer.expires_email(email).deliver
+      if email.alt_email
+        email.lock_access!
+      end
       # save email send in emails if successfull
-      email.set_reminder_send(true)
+      email.set_reminder_sent(true)
       puts "#{Time.now}: reminder email was send for #{email.email}"
     end
 

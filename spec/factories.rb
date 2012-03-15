@@ -8,6 +8,7 @@ Factory.define :email_expires_in_two_days , :class => :email do |email|
   email.reminder_sent         false
   email.email_path            "var/logs/"
   email.domain_id             1
+  email.last_activity_on             Time.now
 end
 
 Factory.define :email do |email|
@@ -19,7 +20,8 @@ Factory.define :email do |email|
   email.expires_on               Time.now + 50.days
   email.reminder_sent         false
   email.email_path            "var/logs/"
-  email.domain_id               1
+  email.last_activity_on             Time.now
+  email.domain_id             1
 end
 
 Factory.define :admin , :class => :email do |admin|
@@ -29,6 +31,7 @@ Factory.define :admin , :class => :email do |admin|
   admin.domain_id               1
   admin.admin "true"
   admin.expires_on               Time.now + 50.days
+  admin.last_activity_on             Time.now
 end
 
 Factory.define :admin_domain, :class => :domain do |domain|
@@ -45,6 +48,7 @@ Factory.define :email_expires_reminder_send , :class => :email do |email|
   email.reminder_sent         true
   email.email_path            "var/logs/"
   email.domain_id             1
+  email.last_activity_on             Time.now
 end
 
 Factory.sequence(:domain_name) do |n|

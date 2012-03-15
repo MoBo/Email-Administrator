@@ -14,6 +14,7 @@ class Email < ActiveRecord::Base
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain
   validates :expires_on, :presence => true
+  validates :last_activity_on, :presence => true
 
   validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true

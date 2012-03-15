@@ -4,7 +4,7 @@ describe Email do
   before do
     @domain = Factory(:domain) 
     @email = Email.new(email: "user@heise.de",
-    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs', reminder_sent: false, expires_on: Time.now + 50.days)
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs', reminder_sent: false, expires_on: Time.now + 50.days, last_activity_on: Time.now)
   end
   
   subject { @email }

@@ -28,14 +28,12 @@ describe "Email pages" do
   describe "new page" do
     before { visit new_email_path }
     
-    it { find_field('email[email_path]').value.should eql 'var/logs/' }
+    it { find_field('email[email_path]').value.should eql APP_CONFIG["email_default_save_path"] }
   end
   
   describe "edit page" do
     before { 
       visit edit_email_path(@example_email) }
-    
-    it { find_field('email[email_path]').value.should eql 'var/logs/' }
     
     it {page.has_select?('email_domain_id', :selected => @example_email.domain.name).should be_true}
   end

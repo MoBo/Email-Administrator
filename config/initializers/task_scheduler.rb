@@ -1,24 +1,16 @@
 require 'rubygems'
 require 'rufus/scheduler'
-#require email class 
-#require 'app/models/email.rb'
+require('./lib/tasks/saving_last_activity.rb')
+require('./lib/tasks/log_parser.rb')
+require('./lib/tasks/check_emails_for_expire.rb')
  
 scheduler = Rufus::Scheduler.start_new
- 
-scheduler.every("15m") do
-   puts "deleting User"
-   @emails = Email.get_emails_expires_soon
-   # send emails to all in emails container
-   @emails.each do |email|
-     EmailMailer.expires_email(email).deliver
-     # save email send in emails if successfull 
-     email.set_reminder_send(true)
-   end
-   
-   # deactivate emails that did not response to the remainder
-   @emails_to_deactivate = Email.get_emails_expired
-   @emails_to_deactivate.each do |email|
-     email.deactivate
-   end
-   
+
+scheduler.every(Rails.env == "test" ? "23h" : APP_CONFIG["email_background_task"]) do
+ puts "#{Time.now}: Parse emails logs"
+ LogParser.new 
+ puts "#{Time.now}: Check activity of emails"
+ CheckEmailsForExpire.new
+ puts "#{Time.now}: Check for emails that are expired" 
+ CheckEmailsForExpire.new
 end

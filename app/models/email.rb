@@ -1,17 +1,16 @@
-class Email < ActiveRecord::Base  
-  
-  
+class Email < ActiveRecord::Base
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forwards, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
+
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forwards, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
   belongs_to :domain
 
-    
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
   validates :password, :presence => {:message => 'Password cannot be blank'}, :if => :password_validation_required?
   validates :email_path, :presence => {:message => 'Email path cannot be blank'}
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain
+  validates :expires_on, :presence => true
 
   validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true
@@ -21,15 +20,15 @@ class Email < ActiveRecord::Base
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_sent => false)
   end
   
   def self.get_emails_expired
     Email.where("expires_on >= ? and active = ?",Time.now,true)
   end
  
-  def set_reminder_send(value)
-    self.update_attributes(:reminder_send => value)
+  def set_reminder_sent(value)
+    self.update_attributes(:reminder_sent => value)
   end
   
   def deactivate
@@ -80,7 +79,7 @@ class Email < ActiveRecord::Base
   end
 
   def forwards
-    forward_email.try(:split, /\s+/) || []
+    forward_email.try(:split, " ") || []
   end
 
   def forwards=(array_or_string)

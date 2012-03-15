@@ -4,7 +4,7 @@ describe Email do
   before do
     @domain = Factory(:domain) 
     @email = Email.new(email: "user@heise.de",
-    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs')
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs', reminder_sent: false, expires_on: Time.now + 50.days)
   end
   
   subject { @email }
@@ -16,9 +16,10 @@ describe Email do
   it {should respond_to(:email_path)}
   it {should respond_to(:domain_id)}
   it {should respond_to(:forward_email)}
-  it {should respond_to(:receive)}
+  it {should respond_to(:can_receive)}
+  it {should respond_to(:can_send)}
   it {should respond_to(:alt_email)}
-  it {should respond_to(:reminder_send)}
+  it {should respond_to(:reminder_sent)}
   it {should respond_to(:active)}
   it {should respond_to(:reset_password_token)}
   it {should respond_to(:reset_password_sent_at)}
@@ -83,6 +84,11 @@ describe Email do
     describe "and unvalid domain_id" do
       before{@email.domain_id = "5"}
       it{@email.should raise_error}
+    end
+    
+    describe "and empty expire date" do
+      before{@email.expires_on = ""}
+      it{@email.should_not be_valid}
     end
   end
   

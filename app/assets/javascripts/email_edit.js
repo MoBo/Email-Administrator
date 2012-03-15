@@ -26,7 +26,7 @@ $(function() {
 				allElements += a + " "
 			};			
 		});
-		var input = $("<input>").attr("type", "hidden").attr("name", "email[forward_email]").val(allElements);
+		var input = $("<input>").attr("type", "hidden").attr("name", "email[forwards]").val(allElements);
 		$('.edit_email').append($(input));
 		$('.forward_email_field').remove();
 		
@@ -34,7 +34,7 @@ $(function() {
 	
 	$(".add_btn").click(function(event){
 		event.preventDefault();
-		$('.forward_email_field').append($(".hidden.forward_email").clone().removeClass("hidden"));
+		$('.forward_email_field').append($(".hidden.forward_email").clone().removeClass("hidden").removeClass("forward_email"));
 		$(".remove_btn").unbind("click")
 		$(".remove_btn").bind("click",remove_fn);
 	});

@@ -1,12 +1,9 @@
-class Email < ActiveRecord::Base  
-  
-  
+class Email < ActiveRecord::Base
   devise :database_authenticatable, :recoverable
 
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forwards, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
   belongs_to :domain
 
-    
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
   validates :password, :presence => {:message => 'Password cannot be blank'}, :if => :password_validation_required?
@@ -85,17 +82,10 @@ class Email < ActiveRecord::Base
     forward_email.try(:split, " ") || []
   end
 
-  def addForwardEmail(value)
-    #check if value already exists
-    if not (self.forward_email.downcase.include? value)
-      self.forward_email +=" " + value
-    else
-    end       
-  end
-  
-  def removeForwardEmail(value)
-    #check the value if it can be sliced
-    self.forward_email.slice! value.to_s
+  def forwards=(array_or_string)
+    array_or_string = array_or_string.split(/\s+/) if array_or_string.is_a? String
+
+    self.forward_email = array_or_string.map(&:downcase).uniq.join(" ")
   end
   
   private

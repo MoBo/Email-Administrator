@@ -9,6 +9,11 @@ class SavingLastActivity
   def initialize
     self.save_for_outgoings
     self.save_for_incoming
+    self.save_for_dovecot
+    #Delete all logs
+    OutgoingLog.delete_all
+    IncomingLog.delete_all
+    DovecotLog.delete_all
   end
   
   def save_for_outgoings
@@ -39,5 +44,18 @@ class SavingLastActivity
     end
   end
   
+  def save_for_dovecot
+    DovecotLog.select('email, max(logged_on) as logged_on').group('email').each do |dovecot|
+      email = Email.find_by_email(dovecot.email)
+      puts "look for #{dovecot.email} dovecot"
+      if email
+          puts "email found #{dovecot.email} dovecot"
+          if dovecot.logged_on > email.last_activity_on
+            puts "#{email.email} was updated to#{dovecot.logged_on} dovecot"
+            email.update_attribute(:last_activity_on, dovecot.logged_on)
+          end
+      end 
+    end
+  end
 end
 

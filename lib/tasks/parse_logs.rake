@@ -38,6 +38,7 @@ class LogParser
       file = File.open('/home/sauli/mail.info')
       file.each do |line|
         proc_line line
+        proc_line_dovecot line
       end
       exit
     end
@@ -184,14 +185,18 @@ class LogParser
   end
 
   def set_old(qid)
-    @m.execute("update incoming_logs set old=1 where queue_id='#{qid}'")
+    incoming = IncomingLog.find_by_queue_id(qid)
+    incoming.update_attribute('old',true) if incoming
+    #@m.execute("update incoming_logs set old=1 where queue_id='#{qid}'")
   end
 
   def update_incoming(hash)
     hash["old"] = "0" unless hash.key? "old"
     s = hash.map{|k,v| $incoming_fields.include?(k) ? "#{k}='#{v}'" : nil}.compact.join(",")
     if hash.key?("id") and hash["id"] then
-      @m.execute("update incoming_logs set #{s} where id='#{hash["id"]}'")
+      incoming = IncomingLog.find(hash["id"])
+      incoming.update_attributes(hash) if incoming
+      #@m.execute("update incoming_logs set #{s} where id='#{hash["id"]}'")
       id = hash["id"].to_i
     else
       incoming = IncomingLog.create(hash)
@@ -324,7 +329,7 @@ class LogParser
     end
   end
 
-  def proc_line_dovecot
+  def proc_line_dovecot(line)
     line.chomp!
     unless $year then
       $year = Time.now.year
@@ -333,29 +338,28 @@ class LogParser
       end
     end
     
-    return unless line =~ /^([A-Z][a-z][a-z]  ?\d+ \d+:\d+:\d+) (\S+) (dovecot): (\S+): (.+): user=<(\S+)>,/no
+    return unless line =~ /^([A-Z][a-z][a-z]  ?\d+ \d+:\d+:\d+) (\S+) dovecot: (\S+): .+: user=<(\S+)>,/no
     datetime = $1
     servername = $2
-    service = $3
-    method = $4
-    email = $5
+    method = $3
+    email = $4
     
+    puts method
     if method.eql? "imap-login"
       datetime = to_time(datetime).strftime("%Y-%m-%d %H:%M:%S")
-      h = {"logged_on"=>datetime, "email"=>email}
+      h = {"logged_on"=>datetime, "email"=>email, "method"=>method}
         insert_dovecot h
     end  
   end
 
   def insert_dovecot(hash)
-    DovecotLog.find();
+    DovecotLog.create(hash);
   end
 
   def follow_mode(f, fname)
     f.each do |line|
       break unless line[-1] == ?\n
       proc_line line
-      proc_line_dovecot line
       @m.execute("replace work_logs set filename='#{fname}',inode='#{f.stat.ino}',pos='#{f.pos}'")
     end
   end

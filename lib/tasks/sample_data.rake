@@ -7,7 +7,7 @@ namespace :db do
       name  = Faker::Internet.domain_name
       Domain.create!(name: name)  
     end
-    Email.create!(email: "ich@sauli.de", password: "foobar", domain_id: 1,admin: "true", email_path: "/var/logs/")
+    Email.create!(email: "ich@sauli.de", password: "foobar", domain_id: 1,admin: "true", email_path: "/var/logs/", :expires_on => 10.day.from_now)
     60.times do |n|
       # :address, :password, :comment, :expires, :path, :foward_email, :receive, :alt_email 
       data = Hash.new

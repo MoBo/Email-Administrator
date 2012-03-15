@@ -12,24 +12,16 @@
       = label_tag(:alt_email,  "Alternative Email")
       = e.text_field :alt_email
     .forward_email_field
-      .hidden.forward_email 
-        = text_field_tag "email[forward_email]"
+      .hidden.forward_email.elem
+        = text_field_tag "email[forwards]"
         = button_tag "Remove", :class => "remove_btn"
-      = label_tag(:forward_email,  "Forward email")
-      - if @email.forward_email 
-        - @email.forward_email.split.each_with_index do |f, i| 
-          .elem
-            = text_field_tag "email[forward_email]", f
-            = button_tag "Remove", :class => "remove_btn"
-      - else
+      = label_tag(:forward_email,  "Forward emails")
+      - @email.forwards.each do |forward|
         .elem
-          = text_field_tag "email[forward_email]"
-          = button_tag "Remove", :class => "remove_btn"
-      .last
-        = text_field_tag "email[forward_email]"
-        = button_tag "Remove", :class => "remove_btn"
+          = text_field_tag "email[forwards]", forward
+          = button_tag "Remove", :class => "btn btn-danger remove_btn"
     .addBtn  
-      = button_tag "Add new field", :class => "add_btn"
+      = button_tag "Add Forward", :class => "btn btn-success add_btn"
     %p
       = e.label :password
       = e.password_field :password

@@ -78,9 +78,11 @@ class Email < ActiveRecord::Base
       end
     end
   end
-  
-  
-  
+
+  def forwards
+    forward_email.try(:split, " ") || []
+  end
+
   def addForwardEmail(value)
     #check if value already exists
     if not (self.forward_email.downcase.include? value)

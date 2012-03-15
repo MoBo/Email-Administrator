@@ -1,11 +1,11 @@
-.well
+.span4.panel.well
   %h2 Forgot your password?
 
 
   = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
     = devise_error_messages!
     %p
-      = label_tag "Enter your email"
+      = label_tag "Enter your email to get password reset instructions"
     %p
       = f.email_field :email, :class => "input-xlarge"
   

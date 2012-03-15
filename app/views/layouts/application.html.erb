@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Email Administrator - Title</title>
+  <title>Email Administrator</title>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
   <![endif]-->
@@ -35,23 +35,40 @@
   </div>
 
   <div class="container">
-    <div class="row">
-   <% if flash[:notice] %>
-    <p class="alert alert-info"><%= flash[:notice] %></p>
-    <% end %>
-    <% if flash[:error] %>
-      <p class="alert alert-error"><%= flash[:error] %></p>
-    <% end %>
-      <div class="span9">
-      	<%= yield %></div>
-      <div class="span3">
-      	<% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-        <h2>Console</h2>
-        <%= debug(params) if Rails.env.development? %>
-      </div>
+  	 <div class="span12">
+  		<% if flash[:notice] %>
+	  		<div class="alert">
+			  <a class="close" data-dismiss="alert">×</a>
+			  <%= flash[:notice] %>
+			</div>
+	    <% end %>
+	    <% if flash[:error] %>
+	     	<div class="alert alert-error">
+			  <a class="close" data-dismiss="alert">×</a>
+			  <%= flash[:error] %>
+			</div>
+	    <% end %>
+	    <% if flash[:alert] %>
+	     	<div class="alert alert-error">
+			  <a class="close" data-dismiss="alert">×</a>
+			  <%= flash[:alert] %>
+			</div>
+	    <% end %>
     </div>
+    <div class="span12">
+  		<%= yield %>
+  	</div>
+  </div>
+  <%- if Rails.env.development? %>
+  <div class="container">
+	  <div class="span9">
+	      	<% flash.each do |key, value| %>
+	          <div class="alert alert-<%= key %>"><%= value %></div>
+	        <% end %>
+	        <h2>Console</h2>
+	        <%= debug(params)  %>
+	  <%- end%>
+  </div>
   </div>
 </body>
 </html>

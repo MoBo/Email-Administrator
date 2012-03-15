@@ -21,7 +21,7 @@ class DomainsController < ApplicationController
       end
       redirect_to :action => 'index', notice: 'Domain was successfully updated.'
     else
-      render action: "index"
+      render 'edit'
     end
   end
   

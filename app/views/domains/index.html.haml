@@ -1,10 +1,13 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Domain
-      %th
-      %th
-  %tbody
-    = render @domains
+.span6.panel.well
+  
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Domain
+        %th
+        %th
+    %tbody
+      = render @domains
+  %p= link_to "Add Domain", new_domain_path, :class => "btn btn-success float=left"
 
-%p= link_to "Add Domain", new_domain_path, :class => "btn btn-success"
+

@@ -1,7 +1,9 @@
-= form_for @domain do |f| 
-  %p
-    Change the Domain
-  %p
-    = f.text_field :name, :class => "input-xlarge"
-  %p
-    = f.submit :class => "btn"
+.span3.panel.well
+  = form_for @domain do |f| 
+    = render 'shared/error_messages', object: f.object
+    %h3
+      Change the domain name
+    %p
+      = f.text_field :name, :class => "input-xlarge"
+    %p
+      = f.submit :class => "btn btn-primary"

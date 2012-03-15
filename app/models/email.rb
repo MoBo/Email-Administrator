@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin
   belongs_to :domain
 
     
@@ -22,7 +22,7 @@ class Email < ActiveRecord::Base
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_sent => false)
   end
   
   def self.get_emails_expired
@@ -30,7 +30,7 @@ class Email < ActiveRecord::Base
   end
  
   def set_reminder_send(value)
-    self.update_attributes(:reminder_send => value)
+    self.update_attributes(:reminder_sent => value)
   end
   
   def deactivate

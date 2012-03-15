@@ -1,0 +1,11 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+  email_background_task: "15m"
+test:
+  <<: *defaults
+  email_background_tasks: "30s"
+production:
+  <<: *defaults
+  email_background_task: "23h"

@@ -88,16 +88,13 @@ class Email < ActiveRecord::Base
   end
 
   def addForwardEmail(value)
-    #check if value already exists
-    if not (self.forward_email.downcase.include? value)
-      self.forward_email +=" " + value
-    else
-    end       
+    value.downcase!
+
+    self.forwards += value unless forwards.include?(value)
   end
   
   def removeForwardEmail(value)
-    #check the value if it can be sliced
-    self.forward_email.slice! value.to_s
+    self.forward_email.slice!(value.downcase)
   end
   
   private

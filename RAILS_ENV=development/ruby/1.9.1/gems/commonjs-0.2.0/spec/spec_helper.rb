@@ -1,3 +1,0 @@
-
-require 'commonjs'
-require 'pathname'

@@ -2,7 +2,8 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
+
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :alt_email, :reminder_sent, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
   belongs_to :domain
 
     
@@ -12,6 +13,7 @@ class Email < ActiveRecord::Base
   validates :email_path, :presence => {:message => 'Email path cannot be blank'}
   validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
   validates_associated :domain
+  validates :expires_on, :presence => true
 
   validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true
@@ -21,7 +23,7 @@ class Email < ActiveRecord::Base
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_send => false)
+    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_sent => false)
   end
   
   def self.get_emails_expired
@@ -29,7 +31,7 @@ class Email < ActiveRecord::Base
   end
  
   def set_reminder_send(value)
-    self.update_attributes(:reminder_send => value)
+    self.update_attributes(:reminder_sent => value)
   end
   
   def deactivate

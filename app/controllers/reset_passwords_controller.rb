@@ -18,4 +18,8 @@ class ResetPasswordsController < ApplicationController
     end
   end
   
+  def show
+    @email = Email.find_by_reset_password_token(params[:id])
+  end
+  
 end

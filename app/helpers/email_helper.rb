@@ -16,10 +16,10 @@ module EmailHelper
   end
   
   def can_receive(email)
-    content_tag(:span, "R", :class => "label label-info") unless email.can_receive?
+    content_tag(:span, "R", :class => "label label-info") if email.can_receive
   end
   
   def can_send(email)
-    content_tag(:span, "S", :class => "label label-info") unless email.can_send?
+    content_tag(:span, "S", :class => "label label-info") if email.can_send
   end
 end

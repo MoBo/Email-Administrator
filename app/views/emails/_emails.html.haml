@@ -7,9 +7,10 @@
   %thead
     %tr
       %th= sortable "email"
-      %th= sortable "expires_on"
-      %th= sortable "domain_id"
       %th
+      %th= sortable "domain_id", "Domain"
+      %th= sortable "expires_on"
+      %th{:colspan => 4}
       %th
   %tbody
     =render @emails

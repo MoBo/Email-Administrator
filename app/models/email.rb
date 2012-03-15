@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forwards, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
   belongs_to :domain
 
     
@@ -80,21 +80,13 @@ class Email < ActiveRecord::Base
   end
 
   def forwards
-    forward_email.try(:split, " ") || []
+    forward_email.try(:split, /\s+/) || []
   end
 
-  def forwards=(forwards_array)
-    forward_email = forwards_array.map(&:downcase).join(" ")
-  end
+  def forwards=(array_or_string)
+    array_or_string = array_or_string.split(/\s+/) if array_or_string.is_a? String
 
-  def addForwardEmail(value)
-    value.downcase!
-
-    self.forwards += value unless forwards.include?(value)
-  end
-  
-  def removeForwardEmail(value)
-    self.forward_email.slice!(value.downcase)
+    self.forward_email = array_or_string.map(&:downcase).uniq.join(" ")
   end
   
   private

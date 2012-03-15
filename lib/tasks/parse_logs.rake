@@ -324,10 +324,38 @@ class LogParser
     end
   end
 
+  def proc_line_dovecot
+    line.chomp!
+    unless $year then
+      $year = Time.now.year
+      if line =~ /^([A-Z][a-z][a-z]  ?\d+ \d+:\d+:\d+)/no then
+        $year -= 1 if Time.now < to_time($1)
+      end
+    end
+    
+    return unless line =~ /^([A-Z][a-z][a-z]  ?\d+ \d+:\d+:\d+) (\S+) (dovecot): (\S+): (.+): user=<(\S+)>,/no
+    datetime = $1
+    servername = $2
+    service = $3
+    method = $4
+    email = $5
+    
+    if method.eql? "imap-login"
+      datetime = to_time(datetime).strftime("%Y-%m-%d %H:%M:%S")
+      h = {"logged_on"=>datetime, "email"=>email}
+        insert_dovecot h
+    end  
+  end
+
+  def insert_dovecot(hash)
+    DovecotLog.find();
+  end
+
   def follow_mode(f, fname)
     f.each do |line|
       break unless line[-1] == ?\n
       proc_line line
+      proc_line_dovecot line
       @m.execute("replace work_logs set filename='#{fname}',inode='#{f.stat.ino}',pos='#{f.pos}'")
     end
   end

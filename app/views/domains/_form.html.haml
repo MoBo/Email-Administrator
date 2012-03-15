@@ -1,3 +1,7 @@
 = form_for @domain do |f| 
-  = f.text_field :name
-  = f.submit
+  %p
+    Change the Domain
+  %p
+    = f.text_field :name, :class => "input-xlarge"
+  %p
+    = f.submit :class => "btn"

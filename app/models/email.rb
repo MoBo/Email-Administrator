@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   
   
   devise :database_authenticatable, :recoverable
-  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :receive, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin
+  attr_accessible :email, :password, :password_confirmation, :comment, :expires_on, :email_path, :forward_email, :alt_email, :reminder_send, :active, :domain_id, :last_activity_on, :admin, :can_receive, :can_send
   belongs_to :domain
 
     
@@ -78,9 +78,11 @@ class Email < ActiveRecord::Base
       end
     end
   end
-  
-  
-  
+
+  def forwards
+    forward_email.try(:split, " ") || []
+  end
+
   def addForwardEmail(value)
     #check if value already exists
     if not (self.forward_email.downcase.include? value)

@@ -5,7 +5,7 @@ require 'rufus/scheduler'
  
 scheduler = Rufus::Scheduler.start_new
  
-scheduler.every("15m") do
+scheduler.every(APP_CONFIG["email_background_task"]) do
    puts "deleting User"
    @emails = Email.get_emails_expires_soon
    # send emails to all in emails container

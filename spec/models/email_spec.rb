@@ -16,7 +16,8 @@ describe Email do
   it {should respond_to(:email_path)}
   it {should respond_to(:domain_id)}
   it {should respond_to(:forward_email)}
-  it {should respond_to(:receive)}
+  it {should respond_to(:can_receive)}
+  it {should respond_to(:can_send)}
   it {should respond_to(:alt_email)}
   it {should respond_to(:reminder_send)}
   it {should respond_to(:active)}

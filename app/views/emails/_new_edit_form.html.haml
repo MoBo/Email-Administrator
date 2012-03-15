@@ -1,55 +1,58 @@
 .emailEditForm
   = form_for @email do |e|
     = render 'shared/error_messages', object: e.object
-    %p
-      = label_tag(:email,  "Email prefix")
-      = text_field_tag 'email[email]', (get_email_prefix(@email.email) if @email.email)
-    %p
-      = e.label :domain
-      = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
-
-    %p
-      = label_tag(:alt_email,  "Alternative Email")
-      = e.text_field :alt_email
-    .forward_email_field
-      .hidden.forward_email 
-        = text_field_tag "email[forward_email]"
-        = button_tag "Remove", :class => "remove_btn"
-      = label_tag(:forward_email,  "Forward email")
-      - if @email.forward_email 
-        - @email.forward_email.split.each_with_index do |f, i| 
-          .elem
-            = text_field_tag "email[forward_email]", f
-            = button_tag "Remove", :class => "remove_btn"
-      - else
-        .elem
+    .checkBoxes.float
+      %p.well
+        = e.label :can_receive, :class => "label label-info"
+        = e.check_box :can_receive
+        = e.label :can_send, :class => "label label-info"
+        = e.check_box :can_send
+        = e.label :admin, :class => "label label-info"
+        = e.check_box :admin
+    .float   
+      %p
+        = label_tag(:email,  "Email prefix")
+        = text_field_tag 'email[email]', (get_email_prefix(@email.email) if @email.email)
+      %p
+        = e.label :domain
+        = select_tag 'email[domain_id]',  options_from_collection_for_select(@domains,"id","name",(@domain.id if @domain))
+  
+      %p
+        = label_tag(:alt_email,  "Alternative Email")
+        = e.text_field :alt_email
+      .forward_email_field
+        .hidden.forward_email 
           = text_field_tag "email[forward_email]"
-          = button_tag "Remove", :class => "remove_btn"
-      .last
-        = text_field_tag "email[forward_email]"
-        = button_tag "Remove", :class => "remove_btn"
-    .addBtn  
-      = button_tag "Add new field", :class => "add_btn"
-    %p
-      = e.label :password
-      = e.password_field :password
-    %p
-      = e.label :comment
-      = e.text_area :comment
-    %p
-      = e.label :expires_on
-      = e.text_field :expires_on
-    %p
-      = e.label :email_path
-      = text_field_tag 'email[email_path]', (@email.email_path ? @email.email_path : "var/logs/")
-
-    %p
-      = e.label :receive
-      = e.check_box :receive
-    %p
-      = e.label :admin
-      = e.check_box :admin
-    %p
-      = e.submit :class => "submit_btn"
+          = button_tag "Remove", :class => "remove_btn btn-danger btn"
+        = label_tag(:forward_email,  "Forward email")
+        - if @email.forward_email 
+          - @email.forward_email.split.each_with_index do |f, i| 
+            .elem
+              = text_field_tag "email[forward_email]", f
+              = button_tag "Remove", :class => "remove_btn btn-danger btn"
+        - else
+          .elem
+            = text_field_tag "email[forward_email]"
+            = button_tag "Remove", :class => "remove_btn btn-danger btn"
+        .last
+          = text_field_tag "email[forward_email]"
+          = button_tag "Remove", :class => "remove_btn btn-danger btn"
+      .addBtn  
+        = button_tag "Add new field", :class => "add_btn btn"
+      %p
+        = e.label :password
+        = e.password_field :password
+    .float
+      %p
+        = e.label :comment
+        = e.text_area :comment
+      %p
+        = e.label :expires_on
+        = e.text_field :expires_on
+      %p
+        = e.label :email_path
+        = text_field_tag 'email[email_path]', (@email.email_path ? @email.email_path : "var/logs/")
+      %p
+        = e.submit :class => "submit_btn btn"
   
   

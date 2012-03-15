@@ -22,6 +22,6 @@ class CreateEmails < ActiveRecord::Migration
     
     add_index :emails, :email,                :unique => true
     add_index :emails, :reset_password_token, :unique => true
-    add_index :emails, :expires, :unique => true
+    add_index :emails, :expires
   end
 end

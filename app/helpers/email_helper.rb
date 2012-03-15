@@ -22,4 +22,12 @@ module EmailHelper
   def can_send(email)
     content_tag(:span, "S", :class => "label label-info") if email.can_send
   end
+  
+  def get_expire_date(email)
+    email.expires_on ? email.expires_on : APP_CONFIG["email_default_expires_in"].days.from_now.to_date
+  end
+  
+  def get_email_path(email)
+    email.email_path ? email.email_path : APP_CONFIG["email_default_save_path"]
+  end
 end

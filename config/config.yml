@@ -1,11 +1,20 @@
 defaults: &defaults
 
 development:
-  <<: *defaults
+  # <<: *defaults
   email_background_task: "15m"
+  email_log_file_path: "/home/sauli/mail.info"
+  email_default_save_path: "/tmp/mails/"
+  email_default_expires_in: 10
 test:
-  <<: *defaults
+  # <<: *defaults
   email_background_tasks: "30s"
+  email_log_file_path: "/home/sauli/mail.info"
+  email_default_save_path: "/tmp/mails/"
+  email_default_expires_in: 50
 production:
-  <<: *defaults
+  # <<: *defaults
   email_background_task: "23h"
+  email_log_file_path: "/var/log/mail.info"
+  email_default_save_path: "/tmp/mails/"
+  email_default_expires_in: 50

@@ -80,11 +80,11 @@ describe EmailsController do
     it "and emails are marked as reminded" do
       emails.empty?.should be_false 
       emails.each do |email|
-        email.set_reminder_send(true);
+        email.set_reminder_sent(true);
       end
       
       emails.each do |email|
-        email.reminder_send.should be_true 
+        email.reminder_sent.should be_true 
       end
     end
     

@@ -48,10 +48,9 @@
         = e.text_area :comment
       %p
         = e.label :expires_on
-        = e.text_field :expires_on
-      %p
+        = text_field_tag 'email[expires_on]', get_expire_date(@email)
         = e.label :email_path
-        = text_field_tag 'email[email_path]', (@email.email_path ? @email.email_path : "var/logs/")
+        = text_field_tag 'email[email_path]', get_email_path(@email)
       %p
         = e.submit :class => "submit_btn btn"
   

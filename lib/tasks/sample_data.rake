@@ -19,7 +19,8 @@ namespace :db do
       data[:domain_id] = domain.id
       data[:email_path] = "/"+ Faker::Internet.domain_word + "/" + Faker::Internet.domain_word + "/"
       data[:forward_email] = Faker::Internet.email if (n%3).zero?
-      data[:receive] = (n%2).zero?
+      data[:can_receive] = (n%2).zero?
+      data[:can_send] = (n%3).zero?
       data[:alt_email] = Faker::Internet.email if (n%2).zero?
       Email.create!(data)  
     end

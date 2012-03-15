@@ -1,0 +1,177 @@
+package configuration for libffi
+cflags: -I/opt/local/lib/libffi-3.0.10/include  
+ldflags: -L/opt/local/lib
+libs: -lffi  
+
+have_library: checking for ffi_call() in -lffi... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib     -lffi   -lruby.1.9.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib     -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ffi.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))ffi_call; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_prep_closure()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: error: 'ffi_prep_closure' undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))ffi_prep_closure; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: warning: implicit declaration of function 'ffi_prep_closure'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { ffi_prep_closure(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_raw_call()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: error: 'ffi_raw_call' undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))ffi_raw_call; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: warning: implicit declaration of function 'ffi_raw_call'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { ffi_raw_call(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_prep_raw_closure()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: error: 'ffi_prep_raw_closure' undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))ffi_prep_raw_closure; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: warning: implicit declaration of function 'ffi_prep_raw_closure'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { ffi_prep_raw_closure(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_blocking_region()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ruby_native_thread_p()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))ruby_native_thread_p; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_call_with_gvl()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: error: 'rb_thread_call_with_gvl' undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_call_with_gvl; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/home/sauli/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/home/sauli/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/local/lib/libffi-3.0.10/include   conftest.c  -L. -L/home/sauli/.rvm/rubies/ruby-1.9.3-p125/lib -L/home/sauli/.rvm/usr/lib -L.  -L/opt/local/lib    -lffi  -lffi   -lruby.1.9.1 -lffi  -lffi   -lpthread -ldl -lobjc "
+conftest.c: In function 't':
+conftest.c:5: warning: implicit declaration of function 'rb_thread_call_with_gvl'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { rb_thread_call_with_gvl(); return 0; }
+/* end */
+
+--------------------
+

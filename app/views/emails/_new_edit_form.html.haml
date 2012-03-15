@@ -44,8 +44,11 @@
       = text_field_tag 'email[email_path]', (@email.email_path ? @email.email_path : "var/logs/")
 
     %p
-      = e.label :receive
-      = e.check_box :receive
+      = e.label :can_receive
+      = e.check_box :can_receive
+    %p
+      = e.label :can_send
+      = e.check_box :can_send
     %p
       = e.label :admin
       = e.check_box :admin

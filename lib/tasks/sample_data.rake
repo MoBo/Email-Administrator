@@ -18,7 +18,7 @@ namespace :db do
       data[:expires_on] = n.day.from_now
       data[:domain_id] = domain.id
       data[:email_path] = "#{APP_CONFIG["email_default_save_path"]}#{data[:email]}@#{domain.name}"
-      data[:forward_email] = Faker::Internet.email if (n%3).zero?
+      data[:forwards] = Faker::Internet.email if (n%3).zero?
       data[:can_receive] = (n%2).zero?
       data[:can_send] = (n%3).zero?
       data[:alt_email] = Faker::Internet.email if (n%2).zero?

@@ -1,6 +1,6 @@
 module EmailHelper
-  def active_badge(email)
-    image_tag("email-is-active.png") if email.active?
+  def active_class(email)
+    email.active? ? "active" : "inactive"
   end
 
   def admin_badge(email)

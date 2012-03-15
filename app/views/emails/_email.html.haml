@@ -1,9 +1,8 @@
-%tr
+%tr{ :class => active_class(email) }
   %td= email.email
   %td= email.expires_on
   %td= email.domain.name
   %td
-    = active_badge(email)
     = admin_badge(email)
     = forwards_badge(email)
   %td= link_to "Edit", [:edit,email], :class => 'btn'

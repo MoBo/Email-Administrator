@@ -30,7 +30,7 @@ class Email < ActiveRecord::Base
     Email.where("expires_on >= ? and active = ?",Time.now,true)
   end
  
-  def set_reminder_send(value)
+  def set_reminder_sent(value)
     self.update_attributes(:reminder_sent => value)
   end
   

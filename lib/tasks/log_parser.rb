@@ -29,14 +29,20 @@ class LogParser
     
     unless $follow then
       filename = APP_CONFIG["email_log_file_path"]
-      worklog = WorkLog.find_by_filename(filename)
-      if worklog
-        @last_parse = worklog.logged_time
-      end
-      file = File.open(filename)
-      file.each do |line|
-        proc_line line
-        proc_line_dovecot line
+        if filename
+        worklog = WorkLog.find_by_filename(filename)
+        if worklog
+          @last_parse = worklog.logged_on
+          worklog.update_attribute("logged_on",Time.now)
+        else
+          WorkLog.create("filename" => filename, "logged_on" => Time.now)
+        end
+        
+        file = File.open(filename)
+        file.each do |line|
+          proc_line line
+          proc_line_dovecot line
+        end
       end
       #exit
     end
@@ -237,10 +243,10 @@ class LogParser
     qid = $1
     content = $2
 
-    datetime = to_time(datetime).strftime("%Y-%m-%d %H:%M:%S")
-    if @last_parse and datetime < @last_parse
-      
-    end
+    datetime_as_time = to_time(datetime)
+    datetime = datetime_as_time.strftime("%Y-%m-%d %H:%M:%S")
+    
+    return if @last_parse and datetime_as_time < @last_parse
 
     if service == "smtpd" and content =~ /^reject: .* from ([A-Za-z0-9._-]+)\[([\d.]+)\](?:: .*?: (.*))?; from=<(.*?)> to=<(.*?)>/no then
       hostname, ipaddr, info, sender, rcpt = $1, $2, $3, $4, $5
@@ -344,7 +350,11 @@ class LogParser
     servername = $2
     method = $3
     email = $4
-
+    
+    datetime_as_time = to_time(datetime)
+    
+    return if @last_parse and datetime_as_time < @last_parse
+    
     if method.eql? "imap-login"
       datetime = to_time(datetime).strftime("%Y-%m-%d %H:%M:%S")
       h = {"logged_on"=>datetime, "email"=>email, "method"=>method}

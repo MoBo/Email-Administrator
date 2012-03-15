@@ -1,13 +1,10 @@
 %tr{ :class => active_class(email) }
-  %td= email.email
-  %td= email.expires_on
+  %td= prefix_for(email.email)
+  %td @
   %td= email.domain.name
-  %td{ :class => "no-padding" }
-    = admin_badge(email)
-  %td{ :class => "no-padding" }
-    = forwards_badge(email)
-  %td{ :class => "no-padding" }
-    = can_receive(email)
-  %td{ :class => "no-padding" }
-    = can_send(email)
+  %td= expiration_date_for(email)
+  %td= admin_badge(email)
+  %td= receive_badge(email)
+  %td= send_badge(email)
+  %td= forwards_badge(email)
   %td= link_to "Edit", [:edit,email], :class => 'btn'

@@ -2,8 +2,9 @@
   = form_for @domain do |f| 
     = render 'shared/error_messages', object: f.object
     %h3
-      Edit domain name
+      Enter new domain name
     %p
       = f.text_field :name, :class => "input-xlarge"
     %p
       = f.submit :class => "btn btn-primary"
+

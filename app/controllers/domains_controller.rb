@@ -21,7 +21,7 @@ class DomainsController < ApplicationController
       end
       redirect_to :action => 'index', notice: 'Domain was successfully updated.'
     else
-      render 'edit'
+      redirect_to :action => 'edit', notice: 'Enter correct domain name'
     end
   end
   
@@ -36,9 +36,9 @@ class DomainsController < ApplicationController
   def create
     @domain = Domain.new(params[:domain])
     if @domain.save
-      redirect_to @domain, notice: 'Domain was successfully created.'
+      redirect_to :action => 'index', notice: 'Domain was successfully created.'
     else
-      redirect_to [:new,:domain]
+      redirect_to [:new,:domain],  notice: 'Enter correct domain name'
     end
   end
   
@@ -48,7 +48,7 @@ class DomainsController < ApplicationController
       e.destroy
     end
     Domain.find(params[:id]).destroy
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', notice: "Domain was successfully deleted."
   end
   
 end

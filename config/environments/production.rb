@@ -68,5 +68,5 @@ EmailAdministrator::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   
   
-  config.action_mailer.default_url_options = { :host => '134.102.26.70:8080/email-admin/' }
+  config.action_mailer.default_url_options = { :host => '134.102.26.70:8080/email-admin' }
 end

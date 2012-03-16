@@ -23,8 +23,10 @@ class Devise::UnlocksController < DeviseController
 
     if resource.errors.empty?
       set_flash_message :notice, :unlocked if is_navigational_format?
+      expires_on = Date.today + APP_CONFIG["email_default_expires_in"]
       resource.update_attribute("active",true)
-      respond_with_navigational(resource){ render :text => "Successful" }
+      resource.update_attribute("expires_on",expires_on)
+      respond_with_navigational(resource){ render :text => "Your account was extended till #{expires_on}" }
     else
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end

@@ -58,6 +58,11 @@ class Email < ActiveRecord::Base
     EmailMailer.expires_email(self).deliver
   end
   
+  def send_reset_password_instructions
+    generate_reset_password_token! if should_generate_reset_token?
+    EmailMailer.reset_password_instructions(self).deliver
+  end
+  
   def password_salt=(password_salt)
   end
 

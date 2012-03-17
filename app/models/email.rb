@@ -48,12 +48,7 @@ class Email < ActiveRecord::Base
     update_attribute(:domain_id , value.id)
     update_attribute(:email ,get_email_prefix(self[:email]) + "@" + value.name)
   end
-  
-  # def email=(value) 
-    # value = value + '@' + Domain.find(self.domain_id).name
-    # write_attribute(:email, value)
-  # end
-  
+
   def send_unlock_instructions
     EmailMailer.expires_email(self).deliver
   end
@@ -98,13 +93,8 @@ class Email < ActiveRecord::Base
   
   def convert_email
     domain_value = Domain.find(self.domain_id).name
-    # if not self.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
     self.email = get_email_prefix(self.email)
     self.email = self.email + '@' + domain_value
-    # else
-      # value = get_email_prefix(self.email) + "@" + domain_value  
-    # end
-    #update_attribute(:email, value)
   end
   
   def password_validation_required?

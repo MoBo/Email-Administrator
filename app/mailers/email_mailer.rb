@@ -3,7 +3,7 @@ class EmailMailer < ActionMailer::Base
   
   def expires_email(email)
     @email = email
-    mail(:to => email.alt_email, :subject => "Your Email adresse '#{email.email}' expires soon!")
+    mail(:to => email.alt_email, :subject => "Your Email address '#{email.email}' expires soon!")
   end
   
   def reset_password_instructions(email)

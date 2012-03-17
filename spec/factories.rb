@@ -29,6 +29,7 @@ Factory.define :admin , :class => :email do |admin|
   admin.domain_id               1
   admin.admin "true"
   admin.expires_on               Time.now + 50.days
+  admin.alt_email "moritz.bode@gmail.com"
 end
 
 Factory.define :admin_domain, :class => :domain do |domain|

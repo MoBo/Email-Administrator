@@ -22,12 +22,12 @@ describe ResetPasswordsController do
     it "should have error if no email is provided" do
       post 'create', {}
       response.should redirect_to(reset_passwords_path)
-      flash[:error].should eq "Email not found"
+      flash[:error].should eq "Email not found or alternativ email not found"
     end
      it "should have error if false email is provided" do
       post 'create', {:email_address => "xxxxxx"}
       response.should redirect_to(reset_passwords_path)
-      flash[:error].should eq "Email not found"
+      flash[:error].should eq "Email not found or alternativ email not found"
     end
   end
   

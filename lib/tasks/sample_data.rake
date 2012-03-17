@@ -15,7 +15,7 @@ namespace :db do
       data[:email] =  Faker::Internet.user_name
       data[:password] = "aaaaaa"
       data[:comment] = Faker::Lorem.words(n+10)
-      data[:expires_on] = n.day.from_now
+      data[:expires_on] = n.day.from_now + rand(1...200)
       data[:domain_id] = domain.id
       data[:email_path] = "#{APP_CONFIG["email_default_save_path"]}#{data[:email]}@#{domain.name}"
       data[:forwards] = Faker::Internet.email if (n%3).zero?

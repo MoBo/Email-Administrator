@@ -47,7 +47,7 @@ class EmailsController < ApplicationController
   private
   
   def sort_column
-    Email.column_names.include?(params[:sort]) ? params[:sort] : "email"
+    Email.column_names.include?(params[:sort]) ? params[:sort] : "expires_on"
   end
   
   def sort_direction

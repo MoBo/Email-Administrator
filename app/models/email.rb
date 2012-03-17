@@ -19,11 +19,11 @@ class Email < ActiveRecord::Base
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where("expires_on <= ? and reminder_sent = ? and active = ?",(Date.today + 14.days),false,true)
+    Email.where("expires_on <= ? and reminder_sent = ? and active = ? and admin = ?",(Date.today + 14.days),false,true,false)
   end
   
   def self.get_emails_expired
-    Email.where("expires_on <= ? and active = ?",Date.today,true)
+    Email.where("expires_on <= ? and active = ?",Time.now.midnight+1.days,true)
   end
  
   def set_reminder_sent(value)

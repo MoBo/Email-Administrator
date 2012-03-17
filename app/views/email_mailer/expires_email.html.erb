@@ -1,0 +1,5 @@
+Your Email address '<%= @email.email %>' expires soon!
+===============================================
+ 
+Please click on the link to extend the service!
+<%= link_to 'Unlock my account', unlock_url(@email, :unlock_token => @email.unlock_token) %>

@@ -2,8 +2,8 @@
   %td= prefix_for(email.email)
   %td @
   %td= email.domain.name
-  %td= form_date_for(email.expires_on)
-  %td= form_date_for(email.last_activity_on)
+  %td= form_date_for_expires_on(email.expires_on)
+  %td= form_date_for_last_activity_on(email.last_activity_on)
   %td= admin_badge(email)
   %td= receive_badge(email)
   %td= send_badge(email)

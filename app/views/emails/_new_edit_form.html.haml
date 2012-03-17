@@ -42,7 +42,7 @@
         = e.text_area :comment
       %p
         = e.label :expires_on
-        = text_field_tag 'email[expires_on]'
+        = text_field_tag 'email[expires_on]', @email.expires_on
         = e.label :email_path
         = text_field_tag 'email[email_path]', maildir_for(@email)
       %p

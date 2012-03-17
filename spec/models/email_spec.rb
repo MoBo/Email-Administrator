@@ -4,7 +4,7 @@ describe Email do
   before do
     @domain = Factory(:domain) 
     @email = Email.new(email: "user@heise.de",
-    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs', reminder_sent: false, expires_on: Time.now + 50.days)
+    password: "foobar", password_confirmation: "foobar", domain_id: @domain.id, email_path: '/var/logs', reminder_sent: false, expires_on: Time.now + 50.days, alt_email: "moritz.bode@gmail.com")
   end
   
   subject { @email }
@@ -86,8 +86,11 @@ describe Email do
       it{@email.should raise_error}
     end
     
-    describe "and empty expire date" do
-      before{@email.expires_on = ""}
+    describe "and expire date and without alternative email" do
+      before{
+        @email.expires_on = Date.today
+        @email.alt_email = ""
+        }
       it{@email.should_not be_valid}
     end
   end

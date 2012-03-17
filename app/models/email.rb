@@ -6,24 +6,24 @@ class Email < ActiveRecord::Base
 
   validates :email, :presence => true ,:format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
     :message => "%{value} has invalid format" }
-  validates :password, :presence => {:message => 'Password cannot be blank'}, :if => :password_validation_required?
+  validates :password, :presence => {:message => '- Password cannot be blank'}, :if => :password_validation_required?
   validates :email_path, :presence => true
-  validates :domain_id, :presence => {:message => 'Domain cannot be blank'}
-  validates :alt_email, :presence => {:message => 'If email can expire, the alternative email must be set'}, :if => "expires_on.nil?"
+  validates :domain_id, :presence => {:message => '- Domain cannot be blank'}
+  validates :alt_email, :presence => {:message => '- If email can expire, the alternative email must be set'}, :if => "not expires_on.blank?"
   validates_associated :domain
 
   validates :alt_email, :format => { :with => /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i,
-    :message => "Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true
+    :message => "- Alternative email: %{value} has invalid format" },:allow_blank => true, :allow_nil => true
     
   before_validation :convert_email  
   
   #static methods
   def self.get_emails_expires_soon
-    Email.where(:expires_on => (Time.now)..(Time.now + 14.days), :reminder_sent => false)
+    Email.where("expires_on <= ? and reminder_sent = ? and active = ?",(Date.today + 14.days),false,true)
   end
   
   def self.get_emails_expired
-    Email.where("expires_on >= ? and active = ?",Time.now,true)
+    Email.where("expires_on <= ? and active = ?",Date.today,true)
   end
  
   def set_reminder_sent(value)

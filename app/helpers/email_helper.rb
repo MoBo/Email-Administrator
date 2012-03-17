@@ -9,7 +9,7 @@ module EmailHelper
 
   def form_date_for(email)
     image_tag("email-expires-on.png") + l(email) if email
-  end  
+  end
 
   def forwards_badge(email)
     image_tag("email-forwards.png")+content_tag(:span, email.forwards.count, :class => "label label-info") unless email.forwards.empty?

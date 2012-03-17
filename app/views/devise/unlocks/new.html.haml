@@ -1,0 +1,13 @@
+.span4.panel.well
+  %h2 Resend unlock instructions
+
+
+  = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+    = devise_error_messages!
+    %p
+      = label_tag "Enter your email that you want to unlock"
+    %p
+      = f.email_field :email, :class => "input-xlarge"
+  
+    = f.submit "Send me the unlock instructions", :class => "btn btn-primary"
+

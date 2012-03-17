@@ -1,8 +1,7 @@
+.addEmail 
+  = link_to "Add Email", new_email_path, :class => "btn btn-success"
 = form_tag emails_path, :method => 'get', :id => "emails_search", :class => "form-search" do
   .pull-right
     = text_field_tag :search, params[:search], :class => "search-query"
     = submit_tag "Search", :email => nil, :class => "btn"
   #emails= render 'emails'
-
-%p
-  = link_to "Add Email", new_email_path, :class => "btn btn-success"

@@ -1,9 +1,9 @@
-.span4.panel.well
-  = form_for @domain do |f| 
-    = render 'shared/error_messages', object: f.object
+= form_for @domain do |f| 
+  = render 'shared/error_messages', object: f.object
+  .span4.panel.well 
     %h3
       Edit domain name
-    %p
-      = f.text_field :name, :class => "input-xlarge"
-    %p
-      = f.submit :class => "btn btn-primary"
+      %p
+        = f.text_field :name, :class => "input-xlarge"
+      %p
+        = f.submit :class => "btn btn-primary"

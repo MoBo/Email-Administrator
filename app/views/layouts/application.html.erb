@@ -21,14 +21,16 @@
         </a>
         <a class="brand" href="/">Email Administrator</a>
         <div class="nav-collapse">
-          <ul class="nav">
-            <li><%= link_to "Emails", emails_path %></li>
-            <li><%= link_to "Domains", domains_path %></li>
-            <li><%= link_to "Stats" %></li>
-          </ul>
-          <ul class="nav pull-right">
-            <li><%= link_to_if email_signed_in?, "Logout", destroy_email_session_path, :method => :delete%></li>
-          </ul>
+        	<% if email_signed_in? %>
+	          <ul class="nav">
+		            <li><%= link_to "Emails", emails_path %></li>
+		            <li><%= link_to "Domains", domains_path %></li>
+		            <li><%= link_to "Stats" %></li>
+	          </ul>
+	          <ul class="nav pull-right">
+	            <li><%= link_to "Logout", destroy_email_session_path, :method => :delete%></li>
+	          </ul>
+        	<% end %>
         </div>
       </div>
     </div>

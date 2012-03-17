@@ -19,9 +19,11 @@ class DomainsController < ApplicationController
       Email.find_all_by_domain_id(params[:id]).each do |e|
         e.domain = @domain
       end
-      redirect_to :action => 'index', notice: 'Domain was successfully updated.'
+      flash[:notice] = 'Domain was successfully updated.'
+      redirect_to :action => 'index'
     else
-      redirect_to :action => 'edit', notice: 'Enter correct domain name'
+      flash[:error] = 'Enter correct domain name'
+      redirect_to :action => 'edit'
     end
   end
   
@@ -36,9 +38,11 @@ class DomainsController < ApplicationController
   def create
     @domain = Domain.new(params[:domain])
     if @domain.save
+      flash[:notice] = 'Domain was successfully created.'
       redirect_to :action => 'index', notice: 'Domain was successfully created.'
     else
-      redirect_to [:new,:domain],  notice: 'Enter correct domain name'
+      flash[:error] = 'Enter correct domain name'
+      redirect_to [:new,:domain]
     end
   end
   
@@ -47,8 +51,9 @@ class DomainsController < ApplicationController
     e.each do |e|
       e.destroy
     end
+    flash[:notice] = 'Domain was successfully deleted.'
     Domain.find(params[:id]).destroy
-    redirect_to :action => 'index', notice: "Domain was successfully deleted."
+    redirect_to :action => 'index'
   end
   
 end
